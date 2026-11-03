@@ -1,0 +1,88 @@
+{
+  "schema": "claviscage.cover-source.v2",
+  "purpose": "README cover loop. Artwork made from real engine output; not a scientific figure.",
+  "scene": {
+    "data": "GenIce2 sII 2x2x2 hydrate crystal (1,088 waters, 3.462 nm cell) analysed by the ClavisCage engine: 1,857 in-cell hydrogen bonds, 192 cages (128 x 5^12 + 64 x 5^12 6^4)",
+    "hero": "One 5^12 cage found by the engine (20 oxygens, 12 pentagonal faces)",
+    "renderer": "three.js (WebGL), drawn from the engine output frame by frame",
+    "generated_by_ai": false
+  },
+  "motion": {
+    "slow": "the hero cage turns once per loop",
+    "mid": "a scan line sweeps the still cell down and up twice per loop",
+    "beat": "the hero cage lights, its pentagons fill, it lifts out and settles back",
+    "seconds": 8,
+    "fps": 20,
+    "size": "1000x500 (captured at 2400x1200)",
+    "loop": "seamless"
+  },
+  "type": {
+    "outlined": false,
+    "note": "Set live in the page and rendered into the frames; no font file is distributed",
+    "runs": [
+      {
+        "id": "label",
+        "text": "HYDRATE CAGE ANALYSIS  /  IN THE BROWSER",
+        "family": "MesloLGS NF"
+      },
+      {
+        "id": "title",
+        "text": "ClavisCage",
+        "family": "Pretendard",
+        "weight": 700
+      },
+      {
+        "id": "motto",
+        "text": "Hydrate cages, measured locally.",
+        "family": "Pretendard",
+        "weight": 700
+      },
+      {
+        "id": "methods",
+        "text": "TRACE · HTR · GRADE · CHILL+ · F3/F4",
+        "family": "MesloLGS NF"
+      },
+      {
+        "id": "counts",
+        "text": "sII 2×2×2  ·  128 × 5¹²  +  64 × 5¹²6⁴",
+        "family": "MesloLGS NF"
+      }
+    ],
+    "fonts": [
+      {
+        "family": "Pretendard",
+        "note": "SIL Open Font License 1.1"
+      },
+      {
+        "family": "MesloLGS NF",
+        "note": "Apache License 2.0"
+      }
+    ]
+  },
+  "checks": "Each loop passed a determinism, size (<= 2 MiB), motion, seam, title-contrast, legibility and photosensitive-flash audit",
+  "mark": {
+    "visible": false
+  },
+  "assets": [
+    {
+      "file": "cover-dark.webp",
+      "bytes": 2054236,
+      "sha256": "1b363d1fcebc3a9830e69b09e88cc037f102b293c1547cdda73afb0e457813a8"
+    },
+    {
+      "file": "poster-dark.png",
+      "bytes": 334474,
+      "sha256": "24470fc1f9a9fdc017a8ec5876a999f5f94cb21d357b286d49d9fe097e02c0a3"
+    },
+    {
+      "file": "cover-light.webp",
+      "bytes": 1972514,
+      "sha256": "0654b34bcf593220b5f7280f7a751a145e2efbd91dfe6ea53212676697690f5b"
+    },
+    {
+      "file": "poster-light.png",
+      "bytes": 312980,
+      "sha256": "aa44567a70e1e19e26363d0ff2c44a85db322a3e0774ac0c5819366c39f597d0"
+    }
+  ]
+}

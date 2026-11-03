@@ -1,0 +1,86 @@
+cff-version: 1.2.0
+message: >-
+  If you use ClavisCage in your work, please cite the software and the method papers for the
+  algorithms you used (listed under references).
+type: software
+title: ClavisCage
+abstract: >-
+  A browser-local workspace for clathrate-hydrate cage analysis: TRACE, HTR, GRADE, CHILL+, F3/F4
+  and guest occupancy, with periodic-boundary-aware visualization and export.
+authors:
+  - alias: wjgoarxiv
+    email: woojingo.contact@gmail.com
+url: "https://claviscage.app"
+repository: "https://github.com/wjgoarxiv/claviscage"
+keywords:
+  - clathrate hydrate
+  - cage detection
+  - molecular dynamics
+  - WebAssembly
+date-released: "2026-11-03"
+references:
+  - type: article
+    title: "TRACE: A Topological Algorithm for Detecting Additive-Coordinated Hydrate Cages"
+    authors:
+      - given-names: Jun-Wei
+        family-names: Hsu
+      - given-names: Shiang-Tai
+        family-names: Lin
+    journal: Journal of Chemical Theory and Computation
+    volume: 21
+    issue: 22
+    start: 11436
+    end: 11454
+    year: 2025
+    doi: 10.1021/acs.jctc.5c01459
+  - type: article
+    title: "HTR: An ultra-high speed algorithm for cage recognition of clathrate hydrates"
+    authors:
+      - given-names: Yisi
+        family-names: Liu
+      - given-names: Ke
+        family-names: Xu
+      - given-names: Yihua
+        family-names: Xu
+      - given-names: Jinjie
+        family-names: Liu
+      - given-names: Jianyang
+        family-names: Wu
+      - given-names: Zhisen
+        family-names: Zhang
+    journal: Nanotechnology Reviews
+    volume: 11
+    issue: 1
+    start: 699
+    end: 711
+    year: 2022
+    doi: 10.1515/ntrev-2022-0044
+  - type: article
+    title: "GRADE: A code to determine clathrate hydrate structures"
+    authors:
+      - given-names: Farbod
+        family-names: Mahmoudinobar
+      - given-names: Cristiano L.
+        family-names: Dias
+    journal: Computer Physics Communications
+    volume: 244
+    start: 385
+    end: 391
+    year: 2019
+    publisher:
+      name: Elsevier
+    doi: 10.1016/j.cpc.2019.06.004
+  - type: article
+    title: "Identification of Clathrate Hydrates, Hexagonal Ice, Cubic Ice, and Liquid Water in Simulations: the CHILL+ Algorithm"
+    authors:
+      - given-names: Andrew H.
+        family-names: Nguyen
+      - given-names: Valeria
+        family-names: Molinero
+    journal: The Journal of Physical Chemistry B
+    volume: 119
+    issue: 29
+    start: 9369
+    end: 9376
+    year: 2015
+    doi: 10.1021/jp510289t

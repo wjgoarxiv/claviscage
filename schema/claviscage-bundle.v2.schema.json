@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/wjgoarxiv/claviscage/schema/claviscage-bundle.v2.schema.json",
+  "title": "ClavisCage bundle v2 (documentation draft)",
+  "description": "Shape of manifest.json and scene.json inside a .claviscage.zip. Documentation only; the app and the Blender extension apply stricter checks.",
+  "$defs": {
+    "vec3": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+    "manifest": {
+      "type": "object",
+      "required": ["format", "schemaVersion", "appVersion", "createdAt", "warnings"],
+      "properties": {
+        "format": { "const": "claviscage.bundle" },
+        "schemaVersion": { "const": 2 },
+        "appVersion": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "warnings": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "molecule": {
+      "type": "object",
+      "required": ["name", "elements", "positions"],
+      "properties": {
+        "name": { "type": "string" },
+        "elements": { "type": "array", "items": { "type": "string" } },
+        "positions": { "type": "array", "items": { "$ref": "#/$defs/vec3" } }
+      }
+    },
+    "cageAnalysis": {
+      "type": "object",
+      "required": ["algorithm", "frameIndex", "totalCages", "visibleCages", "parameters", "cages"],
+      "properties": {
+        "algorithm": { "enum": ["trace", "htr", "grade"] },
+        "frameIndex": { "type": "integer", "minimum": 0 },
+        "totalCages": { "type": "integer", "minimum": 0 },
+        "visibleCages": { "type": "integer", "minimum": 0 },
+        "parameters": {
+          "type": "object",
+          "required": ["oxygenCutoffNm"],
+          "properties": {
+            "oxygenCutoffNm": { "type": "number" },
+            "donorAngleDeg": { "type": "number" },
+            "planarityDeg": { "type": "number" },
+            "d1Nm": { "type": "number" },
+            "d2Nm": { "type": "number" }
+          }
+        },
+        "cages": { "type": "array", "items": { "type": "object" } }
+      }
+    },
+    "scene": {
+      "type": "object",
+      "required": ["frame", "analyses"],
+      "properties": {
+        "frame": {
+          "type": "object",
+          "required": ["title", "waters", "guests", "molecules", "boxDims", "cell", "isTriclinic"],
+          "properties": {
+            "title": { "type": "string" },
+            "waters": { "type": "array" },
+            "guests": { "type": "array" },
+            "molecules": { "type": "array", "items": { "$ref": "#/$defs/molecule" } },
+            "boxDims": { "$ref": "#/$defs/vec3" },
+            "cell": { "type": "array", "items": { "type": "number" }, "minItems": 6, "maxItems": 6 },
+            "isTriclinic": { "type": "boolean" }
+          }
+        },
+        "analyses": {
+          "type": "object",
+          "required": ["chill", "adjacency", "cageAnalysis"],
+          "properties": {
+            "chill": { "type": ["object", "null"] },
+            "adjacency": { "type": "array", "items": { "type": "array", "items": { "type": "integer", "minimum": 0 } } },
+            "cageAnalysis": { "oneOf": [{ "$ref": "#/$defs/cageAnalysis" }, { "type": "null" }] }
+          }
+        }
+      }
+    }
+  },
+  "type": "object",
+  "required": ["manifest", "scene"],
+  "properties": {
+    "manifest": { "$ref": "#/$defs/manifest" },
+    "scene": { "$ref": "#/$defs/scene" }
+  }
+}

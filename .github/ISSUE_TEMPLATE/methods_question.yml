@@ -1,0 +1,28 @@
+name: Methods question or mismatch
+description: A method note, formula, cutoff or result disagrees with a published source.
+labels: [methods]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For documentation and scientific mismatches. Please do not ask for engine code; it is not public.
+  - type: input
+    id: note
+    attributes:
+      label: Which note or docs page?
+      placeholder: e.g. docs/methods/grade.md
+    validations:
+      required: true
+  - type: textarea
+    id: claim
+    attributes:
+      label: Which formula, cutoff or number?
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Conflicting public source
+      description: Paper (with DOI) or reference tool and version.
+    validations:
+      required: true
