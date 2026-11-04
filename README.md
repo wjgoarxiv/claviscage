@@ -22,6 +22,7 @@ Drop in a structure or an MD trajectory, find its cages, and export figures — 
 [![Price](https://img.shields.io/badge/price-free%2C_no_account-C6F500?style=flat-square&labelColor=0B0B0C)](https://claviscage.app)
 [![Docs licence](https://img.shields.io/badge/docs_licence-CC_BY_4.0-ECEAE3?style=flat-square&labelColor=0B0B0C)](LICENSE.md)
 [![Cite](https://img.shields.io/badge/cite-CITATION.cff-ECEAE3?style=flat-square&labelColor=0B0B0C)](CITATION.cff)
+[![Buy me a coffee](https://img.shields.io/badge/buy_me_a_coffee-woojingo-FFDD00?style=flat-square&logo=buymeacoffee&logoColor=0B0B0C&labelColor=FFDD00)](https://buymeacoffee.com/woojingo)
 
 [The app](#%EF%B8%8F-the-app) · [Quick start](#-quick-start) · [Inputs](#-supported-inputs) · [Methods](#-methods) · [Viewing](#%EF%B8%8F-viewing-and-styling) · [Exports](#-exports) · [Validation](#-validation) · [Citing](#-citing) · [FAQ](#-faq)
 
@@ -322,6 +323,12 @@ cannot share.
 Report security problems privately as described in [`SECURITY.md`](SECURITY.md).
 The writing in this repository is CC BY 4.0 ([`LICENSE.md`](LICENSE.md)); the application is not
 licensed by it ([`NOTICE.md`](NOTICE.md)).
+
+## ☕ Support
+
+ClavisCage is free and has no accounts. If it saves you time, you can keep it running with a coffee.
+
+<a href="https://buymeacoffee.com/woojingo"><img src="https://img.shields.io/badge/Buy_me_a_coffee-FFDD00?style=for-the-badge&logo=buymeacoffee&logoColor=0B0B0C" alt="Buy me a coffee" height="36"></a>
 
 ---
 
