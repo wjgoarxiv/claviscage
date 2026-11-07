@@ -1,0 +1,64 @@
+[package]
+name = "clavis-wasm"
+version = "0.3.16"
+edition = "2021"
+authors = ["Woojin Go", "Junghoon Mok", "Yongwon Seo"]
+description = "High-performance hydrate cage analysis running in WebAssembly"
+license = "GPL-3.0-or-later"
+repository = "https://github.com/wjgoarxiv/claviscage"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+# Native headless CLI. Feature-gated so serde_json
+# and the binary are NOT pulled into the WASM (cdylib) build.
+[[bin]]
+name = "clavis-cli"
+path = "src/bin/clavis_cli.rs"
+required-features = ["cli"]
+
+[features]
+default = ["console_error_panic_hook"]
+cli = ["dep:serde_json"]
+# Native Python bindings for the Blender extension. Feature-gated so pyo3 is NEVER
+# pulled into the WASM (cdylib/wasm32) build — it cannot target wasm.
+pyo3 = ["dep:pyo3", "dep:serde_json"]
+
+[dependencies]
+wasm-bindgen = "0.2.100"
+js-sys = "0.3"
+serde = { version = "1.0", features = ["derive"] }
+serde-wasm-bindgen = "0.6"
+serde_json = { version = "1.0", optional = true }
+
+# Native CPython extension module bindings (Blender). abi3-py311 → one stable-ABI
+# wheel loads on CPython 3.11+ (Blender 4.2 ships 3.11). Optional; host builds only.
+# generate-import-lib lets pyo3 synthesize the Windows python3.dll import library when
+# cross-compiling to Windows without a target Python interpreter (no-op on mac/linux).
+pyo3 = { version = "0.23", features = ["extension-module", "abi3-py311", "generate-import-lib"], optional = true }
+
+# For console.log debugging
+web-sys = { version = "0.3", features = ["console"] }
+
+# Better error messages in development
+console_error_panic_hook = { version = "0.1.7", optional = true }
+
+# Parallelism (optional, for future WebGPU/SharedArrayBuffer)
+# rayon = "1.10"
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3"
+
+[profile.release]
+# Optimize for size and speed
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+
+# Release profile for the native Python wheel (maturin build --profile release-py).
+# Same optimization as release, but panic = "unwind" so pyo3 turns an engine panic
+# into a Python exception instead of aborting the host Blender process.
+[profile.release-py]
+inherits = "release"
+panic = "unwind"

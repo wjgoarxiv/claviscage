@@ -1,10 +1,14 @@
-## Docs-only change
+## Engine or docs change
 
-This repository holds documentation only. Pull requests that add source code, WebAssembly or other
-binaries, Python wheels, reference-tool code or outputs, or simulation files will be closed.
+This repository holds the ClavisCage analysis engine (`src/`, `tests/`) and its documentation; pull
+requests for either are welcome. Pull requests that add web app or Blender extension source,
+WebAssembly or other binaries, Python wheels, reference-tool code or simulation trajectories will
+be closed.
 
-- [ ] Changes only Markdown, YAML, `CITATION.cff` or the schema description
 - [ ] Every new citation has a DOI
-- [ ] No trajectory, structure or reference-tool output is attached
+- [ ] No trajectory or private structure is attached, and any new test fixture states where it came from
+- [ ] If this touches `src/`: `cargo test --lib` passes
 
 What changed and why:
+
+Reference-count impact (for `src/` changes: which cage, ring or order-parameter counts move, or "none"):

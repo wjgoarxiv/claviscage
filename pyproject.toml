@@ -1,0 +1,28 @@
+[build-system]
+requires = ["maturin>=1.7,<2"]
+build-backend = "maturin"
+
+[project]
+name = "clavis-engine"
+description = "Native ClavisCage hydrate/ice analysis engine (Python bindings for the Blender extension)"
+requires-python = ">=3.11"
+license = { text = "GPL-3.0-or-later" }
+authors = [
+    { name = "Woojin Go" },
+    { name = "Junghoon Mok" },
+    { name = "Yongwon Seo" },
+]
+classifiers = [
+    "Programming Language :: Rust",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+]
+dynamic = ["version"]
+
+[project.urls]
+Repository = "https://github.com/wjgoarxiv/claviscage"
+
+[tool.maturin]
+# Importable as `import clavis_engine`; the #[pymodule] fn in src/py.rs is named to match.
+module-name = "clavis_engine"
+# Build the native Python bindings; pyo3 is never pulled into the default/wasm build.
+features = ["pyo3"]

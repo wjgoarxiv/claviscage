@@ -5,7 +5,7 @@ contact_links:
     about: How to load files, run each analysis and export results.
   - name: Changelog
     url: https://github.com/wjgoarxiv/claviscage/blob/main/CHANGELOG.md
-    about: What changed in the app and in these docs.
+    about: What changed in the app, the engine and these docs.
   - name: Security report (private)
     url: https://github.com/wjgoarxiv/claviscage/blob/main/SECURITY.md
     about: Do not open a public issue for security problems; follow SECURITY.md.

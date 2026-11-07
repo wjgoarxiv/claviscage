@@ -1,13 +1,16 @@
 # Notice
 
-This repository describes ClavisCage, a browser tool for analysing gas hydrate cages
-(https://claviscage.app). It holds documentation, method notes, a validation summary, the export
-bundle schema, citation metadata and issue templates.
+This repository holds the ClavisCage analysis engine and its documentation. ClavisCage is a tool for
+analysing gas hydrate cages; the browser application runs at https://claviscage.app.
 
-**The application source code is not in this repository.** All rights in the ClavisCage
-application, its analysis engine and its user interface stay with the author. Nothing here grants a
-licence to the application.
+- **Engine source** (`src/`, `tests/`, `pytests/`, `scripts/`, `Cargo.toml`, `pyproject.toml`):
+  GPL-3.0-or-later, see `LICENSE.txt`. The engine includes ports of TRACE and GRADE (both
+  GPL-3.0-or-later) and follows the HTR authors' program; `NOTICE` lists the original authors and
+  the origin of the test fixtures.
+- **Documentation, method notes, diagrams and the bundle schema**: CC BY 4.0, see
+  `LICENSE-docs.md`.
+- **The ClavisCage web application and the Blender extension** are separate programs built on the
+  engine. Their source is not in this repository, and nothing here grants a licence to them.
 
-The written documentation and diagrams in this repository are licensed under CC BY 4.0 (see
-`LICENSE.md`). Papers and third-party tools mentioned here are cited, not redistributed; their
-authors' own licences apply to them.
+Papers and third-party tools mentioned here are cited, not redistributed; their authors' own
+licences apply to them.

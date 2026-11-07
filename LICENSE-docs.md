@@ -9,5 +9,6 @@ link to the licence, and indicate if changes were made.
 
 Full licence text: https://creativecommons.org/licenses/by/4.0/legalcode
 
-This licence does **not** cover the ClavisCage application, its analysis engine, the Blender
-extension, or any third-party work cited here. See `NOTICE.md`.
+This licence does **not** cover the analysis engine source (`src/`, `tests/`, `pytests/`, `scripts/`,
+`Cargo.toml`, `pyproject.toml`), which is licensed under GPL-3.0-or-later (`LICENSE.txt`), nor the
+ClavisCage web application or the Blender extension, which are not in this repository. See `NOTICE.md`.

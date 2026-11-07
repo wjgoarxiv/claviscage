@@ -1,0 +1,35 @@
+{
+  "reference": "GRADE v1.00",
+  "purpose": "Native GRADE cage counts on perfect GenIce2 crystals, used by src/grade/tests.rs. These are the reference tool's own counts, not the ideal counts.",
+  "parameters": {
+    "oxygen_cutoff_nm": 0.35,
+    "planarity_deg": 45.0,
+    "pentagon_diagonal_delta_nm": 0.18,
+    "hexagon_diagonal_delta_nm": 0.26
+  },
+  "native_build": "g++ -O2 -ffp-contract=off (IEEE arithmetic, as in the x86-64 Dockerfile); an arm64 build with fused multiply-add also reads 468 5^12 cages on the 444_S2 crystal, which is not a fixture here",
+  "native_input": "copy of each file with residue SOL and atoms OW HW1 HW2 MW (a copy of OW is the MW site when the source has three sites); oxygen coordinates are untouched",
+  "inputs": {
+    "grade_222_s1.gro": {
+      "source": "tests/fixtures/crystals/222_S1_inputH2O.gro (GenIce2 sI 2x2x2)",
+      "sha256": "fa8bf20e6fed2c00e2dcefc86614f630d51d915b2c6273437a01f9e18471d6e5",
+      "n_water": 368,
+      "ideal": { "5^12": 16, "5^12 6^2": 48, "5^12 6^4": 0 },
+      "native": { "5^12": 6, "5^12 6^2": 44, "5^12 6^4": 0 }
+    },
+    "grade_222_s2.gro": {
+      "source": "tests/fixtures/crystals/222_S2.gro (GenIce2 sII 2x2x2)",
+      "sha256": "6b41369aa4b7e722aab2de298ce356f69ba809bfe94e454ab88c059a0cac2007",
+      "n_water": 1088,
+      "ideal": { "5^12": 128, "5^12 6^2": 0, "5^12 6^4": 64 },
+      "native": { "5^12": 46, "5^12 6^2": 0, "5^12 6^4": 24 }
+    },
+    "htr_1242.gro": {
+      "source": "tests/fixtures/reference/htr_1242.gro",
+      "sha256": "8364444963756b7f397c3a467634c83f688226be27a6e18bcd05cc7fb6900d89",
+      "n_water": 1242,
+      "ideal": { "5^12": 54, "5^12 6^2": 162, "5^12 6^4": 0 },
+      "native": { "5^12": 35, "5^12 6^2": 159, "5^12 6^4": 0 }
+    }
+  }
+}

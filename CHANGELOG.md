@@ -1,8 +1,20 @@
 # Changelog
 
 User-visible changes to the ClavisCage web app and to this documentation. The format follows
-[Keep a Changelog](https://keepachangelog.com/en/1.1.0/). The application itself is not in this
-repository; see `NOTICE.md`.
+[Keep a Changelog](https://keepachangelog.com/en/1.1.0/). The analysis engine is in this
+repository; the web app itself is not (see `NOTICE.md`).
+
+## Unreleased — analysis engine
+
+### Added
+- The ClavisCage analysis engine (Rust crate, v0.3.16) under GPL-3.0-or-later: `src/`, reference
+  tests and fixtures in `tests/`, Python binding tests in `pytests/`, `LICENSE.txt` and `NOTICE`.
+- README section on building, testing and running the command-line tool.
+
+### Changed
+- The documentation licence file is now `LICENSE-docs.md` (CC BY 4.0, unchanged terms).
+- GRADE method note: the engine's GRADE is a step-by-step port of GRADE v1.00 and matches the
+  reference program's counts.
 
 ## 2026-11-03 — public documentation repository
 

@@ -20,7 +20,8 @@ Drop in a structure or an MD trajectory, find its cages, and export figures — 
 [![Open the app](https://img.shields.io/badge/app-claviscage.app-C6F500?style=flat-square&labelColor=0B0B0C)](https://claviscage.app)
 [![Documentation](https://img.shields.io/badge/docs-docs.claviscage.app-ECEAE3?style=flat-square&labelColor=0B0B0C)](https://docs.claviscage.app)
 [![Price](https://img.shields.io/badge/price-free%2C_no_account-C6F500?style=flat-square&labelColor=0B0B0C)](https://claviscage.app)
-[![Docs licence](https://img.shields.io/badge/docs_licence-CC_BY_4.0-ECEAE3?style=flat-square&labelColor=0B0B0C)](LICENSE.md)
+[![Engine licence](https://img.shields.io/badge/engine_licence-GPL--3.0--or--later-ECEAE3?style=flat-square&labelColor=0B0B0C)](LICENSE.txt)
+[![Docs licence](https://img.shields.io/badge/docs_licence-CC_BY_4.0-ECEAE3?style=flat-square&labelColor=0B0B0C)](LICENSE-docs.md)
 [![Cite](https://img.shields.io/badge/cite-CITATION.cff-ECEAE3?style=flat-square&labelColor=0B0B0C)](CITATION.cff)
 [![Buy me a coffee](https://img.shields.io/badge/buy_me_a_coffee-woojingo-FFDD00?style=flat-square&logo=buymeacoffee&logoColor=0B0B0C&labelColor=FFDD00)](https://buymeacoffee.com/woojingo)
 
@@ -29,9 +30,10 @@ Drop in a structure or an MD trajectory, find its cages, and export figures — 
 </div>
 
 > [!NOTE]
-> This repository does **not** contain the ClavisCage source code, its analysis engine, or any
-> reference implementation. It holds documentation, method notes, a validation summary, the export
-> bundle schema and citation metadata. See [`NOTICE.md`](NOTICE.md).
+> This repository holds the ClavisCage **analysis engine** (Rust, GPL-3.0-or-later) with its
+> reference tests, plus documentation, method notes, a validation summary, the export bundle schema
+> and citation metadata. The web app and the Blender extension are separate and not included. See
+> [`NOTICE.md`](NOTICE.md).
 
 ## 🖥️ The app
 
@@ -231,9 +233,27 @@ H-bond data and one cage analysis with its parameters. Its shape is described in
 [`docs/schema/claviscage-bundle.md`](docs/schema/claviscage-bundle.md), with a JSON Schema draft in
 [`schema/`](schema/claviscage-bundle.v2.schema.json).
 
+## 🦀 Engine
+
+The analysis engine is a Rust crate in this repository (`src/`), licensed under GPL-3.0-or-later.
+It holds the parser, periodic geometry, H-bond network, TRACE, HTR, GRADE, CHILL+, F3/F4 and guest
+occupancy. The web app runs the same code as WebAssembly, and the Blender extension loads it as a
+Python wheel.
+
+```bash
+cargo test --lib                                   # unit and reference tests
+cargo build --release --features cli               # command-line tool
+./target/release/clavis-cli trace tests/fixtures/crystals/222_S2.gro   # chill | trace | htr | grade | f3f4
+maturin build --release --features pyo3            # Python wheel (import clavis_engine)
+```
+
+Requires a Rust 2021 toolchain; the wheel needs Python 3.11 or later and `maturin`. Reference
+inputs live in `tests/fixtures/`: GenIce2 sI and sII crystals, the first frame of the TRACE
+example, and the files the reference programs were run on, with their expected outputs.
+
 ## 📚 Citing
 
-[`CITATION.cff`](CITATION.cff) cites ClavisCage and lists the TRACE, HTR, GRADE and CHILL+ papers
+[`CITATION.cff`](CITATION.cff) cites ClavisCage and lists the TRACE, HTR, HTR+, GRADE and CHILL+ papers
 with DOIs; GitHub's *Cite this repository* button reads it. F3, F4, occupancy and the minimum-image
 convention have no paper record here yet. If you report results from a method, please cite its paper
 as well.
@@ -243,6 +263,7 @@ as well.
 
 - J.-W. Hsu and S.-T. Lin, *J. Chem. Theory Comput.* 21 (2025) 11436–11454. [10.1021/acs.jctc.5c01459](https://doi.org/10.1021/acs.jctc.5c01459)
 - Y. Liu, K. Xu, Y. Xu, J. Liu, J. Wu and Z. Zhang, *Nanotechnol. Rev.* 11 (2022) 699–711. [10.1515/ntrev-2022-0044](https://doi.org/10.1515/ntrev-2022-0044)
+- Q. Shi, Z. Lin, Y. Qu, J. Wu and Z. Zhang, *J. Phys.: Condens. Matter* 36 (2024) 365901 (HTR+). [10.1088/1361-648X/ad52df](https://doi.org/10.1088/1361-648X/ad52df)
 - F. Mahmoudinobar and C. L. Dias, *Comput. Phys. Commun.* 244 (2019) 385–391. [10.1016/j.cpc.2019.06.004](https://doi.org/10.1016/j.cpc.2019.06.004)
 - A. H. Nguyen and V. Molinero, *J. Phys. Chem. B* 119 (2015) 9369–9376. [10.1021/jp510289t](https://doi.org/10.1021/jp510289t)
 
@@ -251,6 +272,9 @@ as well.
 ## 🗂️ What is in this repository
 
 ```text
+src/                the Rust engine (GPL-3.0-or-later)
+tests/              reference tests and fixtures
+pytests/            Python binding tests
 docs/methods/       how each analysis works and which defaults it uses
 docs/validation/    reference figures the engine reproduces
 docs/schema/        the .claviscage.zip bundle, in prose
@@ -304,8 +328,9 @@ Cage-forming waters must use one of the recognised residue names (`SOL`, `HOH`, 
 <details>
 <summary>Where is the source code?</summary>
 
-It is private and is not published here. This repository documents what the app does so results
-can be understood, checked and cited. See [`NOTICE.md`](NOTICE.md).
+The analysis engine, which produces every number the app reports, is here under GPL-3.0-or-later
+(see [Engine](#-engine)). The web app's interface and the Blender extension are not published. See
+[`NOTICE.md`](NOTICE.md).
 
 </details>
 
@@ -321,8 +346,9 @@ cannot share.
 ## 🔒 Security and licence
 
 Report security problems privately as described in [`SECURITY.md`](SECURITY.md).
-The writing in this repository is CC BY 4.0 ([`LICENSE.md`](LICENSE.md)); the application is not
-licensed by it ([`NOTICE.md`](NOTICE.md)).
+The engine source is GPL-3.0-or-later ([`LICENSE.txt`](LICENSE.txt)); the writing in this
+repository is CC BY 4.0 ([`LICENSE-docs.md`](LICENSE-docs.md)). The web app is not licensed by
+either ([`NOTICE.md`](NOTICE.md)).
 
 ## ☕ Support
 

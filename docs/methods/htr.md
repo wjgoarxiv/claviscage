@@ -25,3 +25,7 @@ but are not occupiable; occupancy uses complete HTR cages only.
 Y. Liu, K. Xu, Y. Xu, J. Liu, J. Wu and Z. Zhang, "HTR: An ultra-high speed algorithm for cage
 recognition of clathrate hydrates", *Nanotechnology Reviews* 11 (1) (2022) 699–711.
 https://doi.org/10.1515/ntrev-2022-0044
+
+HTR+ extends the method to hydrate types and polycrystals: Q. Shi, Z. Lin, Y. Qu, J. Wu and Z. Zhang,
+"HTR+: a novel algorithm for identifying type and polycrystal of gas hydrates", *Journal of Physics:
+Condensed Matter* 36 (2024) 365901. https://doi.org/10.1088/1361-648X/ad52df

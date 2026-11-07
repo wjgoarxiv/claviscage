@@ -5,11 +5,11 @@ body:
   - type: markdown
     attributes:
       value: |
-        For documentation and scientific mismatches. Please do not ask for engine code; it is not public.
+        For documentation, engine and scientific mismatches. Requests for the web app or Blender extension source are out of scope and will be closed.
   - type: input
     id: note
     attributes:
-      label: Which note or docs page?
+      label: Which note, docs page or engine file?
       placeholder: e.g. docs/methods/grade.md
     validations:
       required: true

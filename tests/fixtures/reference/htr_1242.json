@@ -1,0 +1,18 @@
+{
+  "reference": "HTR reference output",
+  "input": "tests/fixtures/reference/htr_1242.gro",
+  "input_sha256": "7a7872f3a76644acb361e0dca6d62ade173ae7275ad6e92594c07fd4733ab122",
+  "frames": 1,
+  "n_water": 1242,
+  "expected_ring_counts": {
+    "4": 0,
+    "5": 1296,
+    "6": 162,
+    "total": 1458
+  },
+  "expected_hbonds": 2484,
+  "expected_cage_types": {
+    "0-12-0": 54,
+    "0-12-2": 162
+  }
+}

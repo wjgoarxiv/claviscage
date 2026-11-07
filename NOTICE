@@ -1,0 +1,21 @@
+ClavisCage engine
+Copyright (c) 2026 Woojin Go, Junghoon Mok and Yongwon Seo
+
+The engine is licensed under GPL-3.0-or-later (see LICENSE.txt) because it
+includes direct ports and adaptations of GPL-3.0-or-later scientific
+implementations:
+
+- TRACE: Copyright (c) 2025 Jun Wei Hsu and Shiang-Tai Lin.
+- GRADE: Copyright (c) 2018 Farbod Mahmoudinobar and Cristiano L. Dias.
+
+HTR is implemented as described by Liu et al., Nanotechnol. Rev. 2022,
+doi:10.1515/ntrev-2022-0044, and extended in HTR+ (Shi et al., J. Phys.: Condens.
+Matter 2024, doi:10.1088/1361-648X/ad52df). Its results are checked against the
+authors' published program, https://gitee.com/TxxLewis/HTR.
+
+The crystal fixtures in tests/fixtures/crystals were generated with GenIce2
+(Matsumoto et al., J. Comput. Chem. 2018, doi:10.1002/jcc.25077).
+tests/fixtures/crystals/example_H2O_frame0.gro is the first frame of the example
+trajectory distributed with TRACE.
+
+Rust dependency licences are declared by each crate listed in Cargo.toml.

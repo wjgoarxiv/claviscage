@@ -5,13 +5,22 @@ message: >-
 type: software
 title: ClavisCage
 abstract: >-
-  A browser-local workspace for clathrate-hydrate cage analysis: TRACE, HTR, GRADE, CHILL+, F3/F4
-  and guest occupancy, with periodic-boundary-aware visualization and export.
+  A Rust engine for clathrate-hydrate cage analysis (TRACE, HTR, GRADE, CHILL+, F3/F4 and guest
+  occupancy) with one periodic-geometry layer, compiled to WebAssembly for the browser application
+  and to a Python wheel for Blender.
 authors:
-  - alias: wjgoarxiv
+  - given-names: Woojin
+    family-names: Go
+    orcid: "https://orcid.org/0000-0003-4021-8621"
     email: woojingo.contact@gmail.com
+  - given-names: Junghoon
+    family-names: Mok
+  - given-names: Yongwon
+    family-names: Seo
+license: GPL-3.0-or-later
+version: 0.3.16
 url: "https://claviscage.app"
-repository: "https://github.com/wjgoarxiv/claviscage"
+repository-code: "https://github.com/wjgoarxiv/claviscage"
 keywords:
   - clathrate hydrate
   - cage detection
@@ -55,6 +64,25 @@ references:
     end: 711
     year: 2022
     doi: 10.1515/ntrev-2022-0044
+  - type: article
+    title: "HTR+: a novel algorithm for identifying type and polycrystal of gas hydrates"
+    authors:
+      - given-names: Qiao
+        family-names: Shi
+      - given-names: Ziyan
+        family-names: Lin
+      - given-names: Yongxiao
+        family-names: Qu
+      - given-names: Jianyang
+        family-names: Wu
+      - given-names: Zhisen
+        family-names: Zhang
+    journal: "Journal of Physics: Condensed Matter"
+    volume: 36
+    issue: 36
+    start: 365901
+    year: 2024
+    doi: 10.1088/1361-648X/ad52df
   - type: article
     title: "GRADE: A code to determine clathrate hydrate structures"
     authors:

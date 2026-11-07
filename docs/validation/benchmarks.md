@@ -1,7 +1,8 @@
 # Validation summary
 
-Numbers the ClavisCage engine reproduces, as recorded in the project changelog and docs. Inputs
-and reference-tool outputs are not redistributed here; blank cells are things we have not published.
+Numbers the ClavisCage engine reproduces, as recorded in the project changelog and docs. The inputs
+and expected outputs behind the engine tests are in `tests/fixtures/`; other inputs are not
+redistributed here, and blank cells are things we have not published.
 
 | Check | Result | Not claimed |
 |---|---|---|
@@ -14,7 +15,7 @@ and reference-tool outputs are not redistributed here; blank cells are things we
 | F3 / F4, supplied `prod.gro` | F3 0.03089055687939763, F4 0.5403493788565187; match an independent calculation and CalF4 | Water model, cutoff and frame are not restated in this record |
 | HTR occupancy, 4,500-water `prod.gro` | 164 complete cages with finite periodic centres, 161 occupied, θ_S 98.18 %, θ_L 100 % | |
 | CHILL+, GenIce2 ice Ih, ice Ic, sI, sII | 100 % expected class | Per-class counts |
-| `.claviscage.zip` bundle | Schema v1 and v2 round-trip in private regression tests | Fixtures are not published |
+| `.claviscage.zip` bundle | Schema v1 and v2 round-trip in the web app and Blender extension regression tests | Those tests and their fixtures are not in this repository |
 
 Reference tools named above (TRACE, HTR, GRADE, CalF4) belong to their authors and are cited in
 `CITATION.cff`; they are not included in this repository.

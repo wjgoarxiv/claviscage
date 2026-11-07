@@ -1,0 +1,16 @@
+{
+  "reference": "GRADE v1.00",
+  "input": "tests/fixtures/reference/grade_prod.gro",
+  "input_sha256": "7b06be697cb4fc01e8ac280a12adc85ac7e5f0b15a0023c0b60e636c4f76df22",
+  "parameters": {
+    "oxygen_cutoff_nm": 0.35,
+    "planarity_deg": 45.0,
+    "pentagon_diagonal_delta_nm": 0.18,
+    "hexagon_diagonal_delta_nm": 0.26
+  },
+  "expected": {
+    "5^12": { "total": 64, "filled": 63 },
+    "5^12 6^2": { "total": 23, "filled": 23 },
+    "5^12 6^4": { "total": 4, "filled": 4 }
+  }
+}
