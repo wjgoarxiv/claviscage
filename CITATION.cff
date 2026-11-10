@@ -22,6 +22,14 @@ authors:
     orcid: "https://orcid.org/0000-0002-7249-5052"
 license: GPL-3.0-or-later
 version: 0.3.18
+doi: 10.5281/zenodo.24112917
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.24112917
+    description: Concept DOI, all versions
+  - type: doi
+    value: 10.5281/zenodo.24112918
+    description: Version 0.3.18
 url: "https://claviscage.app"
 repository-code: "https://github.com/wjgoarxiv/claviscage"
 keywords:

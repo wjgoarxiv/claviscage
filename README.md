@@ -277,7 +277,7 @@ with their expected outputs. `benchmarks/results.json` holds the benchmark table
 ## 📚 Citing
 
 [`CITATION.cff`](CITATION.cff) cites ClavisCage and lists the TRACE, HTR, HTR+, GRADE and CHILL+ papers
-with DOIs; GitHub's *Cite this repository* button reads it. The papers for F3 / F4, averaged
+with DOIs; GitHub's *Cite this repository* button reads it. Each release is archived on Zenodo: [10.5281/zenodo.24112917](https://doi.org/10.5281/zenodo.24112917) cites every version, and [10.5281/zenodo.24112918](https://doi.org/10.5281/zenodo.24112918) is version 0.3.18. The papers for F3 / F4, averaged
 q4 / q6, MCG-3 and tetrahedral order are listed below. Occupancy and the minimum-image convention
 have no paper record here yet. If you report results from a method, please cite its paper as well.
 
