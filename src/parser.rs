@@ -326,9 +326,8 @@ fn is_hydrogen_atom(name: &str) -> bool {
 }
 
 /// Minimum-image-aware centroid: unwrap every atom relative to the first against the
-/// (orthorhombic) box, average, then wrap back in. Matches the frontend
-/// `calculateGuestCentroid`, so a guest split across the periodic boundary is located
-/// correctly instead of at the box center.
+/// (orthorhombic) box, average, then wrap back in, so a guest split across the periodic
+/// boundary is located correctly instead of at the box center.
 fn mic_centroid(positions: &[[f64; 3]], box_dims: &[f64; 3]) -> [f64; 3] {
     let anchor = positions[0];
     let mut sum = [0.0f64; 3];
@@ -366,7 +365,7 @@ fn is_non_guest_residue(name: &str) -> bool {
 
 /// A guest is any non-water residue that is not an ion/metal. The caller only reaches
 /// this for non-water residues. Deliberately a denylist (not an allowlist) so custom
-/// guests are not silently dropped and this agrees with the frontend guest filter.
+/// guests are not silently dropped.
 fn is_guest_residue(name: &str) -> bool {
     !is_non_guest_residue(name)
 }

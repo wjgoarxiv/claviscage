@@ -5,7 +5,7 @@
 //
 // Classifies each water oxygen into 6 classes from the ten-Wolde q3 bond-orientational
 // order parameter and the staggered/eclipsed character of its O-O cutoff-neighbor bonds.
-// Clean-room implementation from the paper + OVITO's documented thresholds.
+// Implemented from the paper + OVITO's documented thresholds.
 //
 // OVITO integer codes: 0 Other/liquid, 1 Hexagonal ice, 2 Cubic ice, 3 Interfacial ice,
 // 4 Gas hydrate (clathrate), 5 Interfacial hydrate.

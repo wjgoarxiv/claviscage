@@ -5,9 +5,10 @@ message: >-
 type: software
 title: ClavisCage
 abstract: >-
-  A Rust engine for clathrate-hydrate cage analysis (TRACE, HTR, GRADE, CHILL+, F3/F4 and guest
-  occupancy) with one periodic-geometry layer, compiled to WebAssembly for the browser application
-  and to a Python wheel for Blender.
+  A Rust engine for clathrate-hydrate cage analysis (TRACE, HTR, GRADE, CHILL+, F3/F4, averaged
+  Steinhardt q4/q6, MCG-3, tetrahedral order and guest occupancy) with one periodic-geometry layer
+  and a method registry, compiled to WebAssembly for the browser application and to a Python wheel
+  for Blender.
 authors:
   - given-names: Woojin
     family-names: Go
@@ -20,7 +21,7 @@ authors:
     family-names: Seo
     orcid: "https://orcid.org/0000-0002-7249-5052"
 license: GPL-3.0-or-later
-version: 0.3.17
+version: 0.3.18
 url: "https://claviscage.app"
 repository-code: "https://github.com/wjgoarxiv/claviscage"
 keywords:
@@ -28,7 +29,7 @@ keywords:
   - cage detection
   - molecular dynamics
   - WebAssembly
-date-released: "2026-11-03"
+date-released: "2026-11-10"
 references:
   - type: article
     title: "TRACE: A Topological Algorithm for Detecting Additive-Coordinated Hydrate Cages"

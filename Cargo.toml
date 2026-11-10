@@ -1,6 +1,6 @@
 [package]
 name = "clavis-wasm"
-version = "0.3.17"
+version = "0.3.18"
 edition = "2021"
 authors = ["Woojin Go", "Junghoon Mok", "Yongwon Seo"]
 description = "High-performance hydrate cage analysis running in WebAssembly"
@@ -48,6 +48,7 @@ console_error_panic_hook = { version = "0.1.7", optional = true }
 
 [dev-dependencies]
 wasm-bindgen-test = "0.3"
+serde_json = "1.0"
 
 [profile.release]
 # Optimize for size and speed

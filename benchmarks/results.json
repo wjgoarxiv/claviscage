@@ -1,0 +1,689 @@
+{
+  "descriptor_versions": {
+    "chill": 1,
+    "f3f4": 1,
+    "grade": 1,
+    "htr": 1,
+    "mcg": 1,
+    "steinhardt": 1,
+    "tetra": 1,
+    "trace": 1
+  },
+  "engine": "0.3.18",
+  "rows": [
+    {
+      "expected": {
+        "0-12-0": 128.0,
+        "0-12-2": 0.0,
+        "0-12-4": 64.0
+      },
+      "fixture": "crystals/222_S2.gro",
+      "method": "trace",
+      "observed": {
+        "0-12-0": 128.0,
+        "0-12-4": 64.0
+      },
+      "verdict": "exact",
+      "waters": 1088
+    },
+    {
+      "expected": {
+        "0-12-0": 128.0,
+        "0-12-2": 384.0,
+        "0-12-4": 0.0
+      },
+      "fixture": "crystals/444_S1.gro",
+      "method": "trace",
+      "observed": {
+        "0-12-0": 128.0,
+        "0-12-2": 384.0
+      },
+      "verdict": "exact",
+      "waters": 2944
+    },
+    {
+      "expected": {
+        "0-12-0": 16.0,
+        "0-12-2": 48.0,
+        "0-12-4": 0.0
+      },
+      "fixture": "benchmark/sI_222.gro",
+      "method": "trace",
+      "observed": {
+        "0-12-0": 16.0,
+        "0-12-2": 48.0
+      },
+      "verdict": "exact",
+      "waters": 368
+    },
+    {
+      "expected": {
+        "0-12-0": 128.0,
+        "0-12-2": 0.0,
+        "0-12-4": 64.0
+      },
+      "fixture": "benchmark/sII_222.gro",
+      "method": "trace",
+      "observed": {
+        "0-12-0": 128.0,
+        "0-12-4": 64.0
+      },
+      "verdict": "exact",
+      "waters": 1088
+    },
+    {
+      "expected": {
+        "0-12-0": 48.0,
+        "0-12-2": 0.0,
+        "0-12-4": 0.0
+      },
+      "fixture": "benchmark/sH_222.gro",
+      "method": "trace",
+      "observed": {
+        "0-12-0": 48.0
+      },
+      "verdict": "exact",
+      "waters": 544
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/Ih_332.gro",
+      "method": "trace",
+      "observed": {},
+      "verdict": "recorded",
+      "waters": 288
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/Ic_222.gro",
+      "method": "trace",
+      "observed": {},
+      "verdict": "recorded",
+      "waters": 64
+    },
+    {
+      "expected": null,
+      "fixture": "reference/htr_1242.gro",
+      "method": "htr",
+      "observed": {
+        "0-12-0": 54.0,
+        "0-12-2": 162.0
+      },
+      "verdict": "recorded",
+      "waters": 1242
+    },
+    {
+      "expected": {
+        "0-12-0": 128.0,
+        "0-12-2": 0.0,
+        "0-12-4": 64.0
+      },
+      "fixture": "crystals/222_S2.gro",
+      "method": "htr",
+      "observed": {
+        "0-12-0": 128.0,
+        "0-12-4": 64.0
+      },
+      "verdict": "exact",
+      "waters": 1088
+    },
+    {
+      "expected": {
+        "0-12-0": 16.0,
+        "0-12-2": 48.0,
+        "0-12-4": 0.0
+      },
+      "fixture": "benchmark/sI_222.gro",
+      "method": "htr",
+      "observed": {
+        "0-12-0": 16.0,
+        "0-12-2": 48.0
+      },
+      "verdict": "exact",
+      "waters": 368
+    },
+    {
+      "expected": {
+        "0-12-0": 128.0,
+        "0-12-2": 0.0,
+        "0-12-4": 64.0
+      },
+      "fixture": "benchmark/sII_222.gro",
+      "method": "htr",
+      "observed": {
+        "0-12-0": 128.0,
+        "0-12-4": 64.0
+      },
+      "verdict": "exact",
+      "waters": 1088
+    },
+    {
+      "expected": {
+        "0-12-0": 48.0,
+        "0-12-8": 16.0,
+        "3-6-3": 32.0
+      },
+      "fixture": "benchmark/sH_222.gro",
+      "method": "htr",
+      "observed": {
+        "0-12-0": 48.0,
+        "0-12-8": 16.0,
+        "3-6-3": 32.0
+      },
+      "verdict": "exact",
+      "waters": 544
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/Ih_332.gro",
+      "method": "htr",
+      "observed": {},
+      "verdict": "recorded",
+      "waters": 288
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/Ic_222.gro",
+      "method": "htr",
+      "observed": {},
+      "verdict": "recorded",
+      "waters": 64
+    },
+    {
+      "expected": null,
+      "fixture": "reference/grade_222_s1.gro",
+      "method": "grade",
+      "observed": {
+        "0-12-0": 6.0,
+        "0-12-2": 44.0
+      },
+      "verdict": "recorded",
+      "waters": 368
+    },
+    {
+      "expected": null,
+      "fixture": "reference/grade_222_s2.gro",
+      "method": "grade",
+      "observed": {
+        "0-12-0": 46.0,
+        "0-12-4": 24.0
+      },
+      "verdict": "recorded",
+      "waters": 1088
+    },
+    {
+      "expected": null,
+      "fixture": "reference/grade_prod.gro",
+      "method": "grade",
+      "observed": {
+        "0-12-0": 64.0,
+        "0-12-2": 23.0,
+        "0-12-4": 4.0
+      },
+      "verdict": "recorded",
+      "waters": 4500
+    },
+    {
+      "expected": {
+        "0-12-0": 16.0,
+        "0-12-2": 48.0,
+        "0-12-4": 0.0
+      },
+      "fixture": "benchmark/sI_222.gro",
+      "method": "grade",
+      "observed": {
+        "0-12-0": 9.0,
+        "0-12-2": 24.0
+      },
+      "verdict": "known mismatch: GRADE v1.00 tests ring planarity on raw coordinates without the minimum image, so rings that straddle the box edge are dropped and the count depends on where the edge falls; the port keeps this",
+      "waters": 368
+    },
+    {
+      "expected": {
+        "0-12-0": 128.0,
+        "0-12-2": 0.0,
+        "0-12-4": 64.0
+      },
+      "fixture": "benchmark/sII_222.gro",
+      "method": "grade",
+      "observed": {
+        "0-12-0": 87.0,
+        "0-12-4": 26.0
+      },
+      "verdict": "known mismatch: GRADE v1.00 tests ring planarity on raw coordinates without the minimum image, so rings that straddle the box edge are dropped and the count depends on where the edge falls; the port keeps this",
+      "waters": 1088
+    },
+    {
+      "expected": {
+        "0-12-0": 48.0,
+        "0-12-2": 0.0,
+        "0-12-4": 0.0
+      },
+      "fixture": "benchmark/sH_222.gro",
+      "method": "grade",
+      "observed": {
+        "0-12-0": 25.0
+      },
+      "verdict": "known mismatch: GRADE v1.00 tests ring planarity on raw coordinates without the minimum image, so rings that straddle the box edge are dropped and the count depends on where the edge falls; the port keeps this",
+      "waters": 544
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/Ih_332.gro",
+      "method": "grade",
+      "observed": {},
+      "verdict": "recorded",
+      "waters": 288
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/Ic_222.gro",
+      "method": "grade",
+      "observed": {},
+      "verdict": "recorded",
+      "waters": 64
+    },
+    {
+      "expected": {
+        "hydrate": 1.0
+      },
+      "fixture": "crystals/222_S2.gro",
+      "method": "chill",
+      "observed": {
+        "hydrate": 1.0,
+        "ice_ic": 0.0,
+        "ice_ih": 0.0,
+        "interfacial_hydrate": 0.0,
+        "interfacial_ice": 0.0,
+        "liquid": 0.0
+      },
+      "verdict": "exact",
+      "waters": 1088
+    },
+    {
+      "expected": {
+        "hydrate": 1.0
+      },
+      "fixture": "benchmark/sI_222.gro",
+      "method": "chill",
+      "observed": {
+        "hydrate": 1.0,
+        "ice_ic": 0.0,
+        "ice_ih": 0.0,
+        "interfacial_hydrate": 0.0,
+        "interfacial_ice": 0.0,
+        "liquid": 0.0
+      },
+      "verdict": "exact",
+      "waters": 368
+    },
+    {
+      "expected": {
+        "hydrate": 1.0
+      },
+      "fixture": "benchmark/sII_222.gro",
+      "method": "chill",
+      "observed": {
+        "hydrate": 1.0,
+        "ice_ic": 0.0,
+        "ice_ih": 0.0,
+        "interfacial_hydrate": 0.0,
+        "interfacial_ice": 0.0,
+        "liquid": 0.0
+      },
+      "verdict": "exact",
+      "waters": 1088
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/sH_222.gro",
+      "method": "chill",
+      "observed": {
+        "hydrate": 1.0,
+        "ice_ic": 0.0,
+        "ice_ih": 0.0,
+        "interfacial_hydrate": 0.0,
+        "interfacial_ice": 0.0,
+        "liquid": 0.0
+      },
+      "verdict": "recorded",
+      "waters": 544
+    },
+    {
+      "expected": {
+        "ice_ih": 1.0
+      },
+      "fixture": "benchmark/Ih_332.gro",
+      "method": "chill",
+      "observed": {
+        "hydrate": 0.0,
+        "ice_ic": 0.0,
+        "ice_ih": 1.0,
+        "interfacial_hydrate": 0.0,
+        "interfacial_ice": 0.0,
+        "liquid": 0.0
+      },
+      "verdict": "exact",
+      "waters": 288
+    },
+    {
+      "expected": {
+        "ice_ic": 1.0
+      },
+      "fixture": "benchmark/Ic_222.gro",
+      "method": "chill",
+      "observed": {
+        "hydrate": 0.0,
+        "ice_ic": 1.0,
+        "ice_ih": 0.0,
+        "interfacial_hydrate": 0.0,
+        "interfacial_ice": 0.0,
+        "liquid": 0.0
+      },
+      "verdict": "exact",
+      "waters": 64
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/sI_222.gro",
+      "method": "f3f4",
+      "observed": {
+        "f3": 0.005292548494788578,
+        "f4": 0.8994230310543861
+      },
+      "verdict": "recorded",
+      "waters": 368
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/sII_222.gro",
+      "method": "f3f4",
+      "observed": {
+        "f3": 0.0031718107355143393,
+        "f4": 0.9591662674940679
+      },
+      "verdict": "recorded",
+      "waters": 1088
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/sH_222.gro",
+      "method": "f3f4",
+      "observed": {
+        "f3": 0.005085803646971464,
+        "f4": 0.9100171615404424
+      },
+      "verdict": "recorded",
+      "waters": 544
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/Ih_332.gro",
+      "method": "f3f4",
+      "observed": {
+        "f3": 0.0003860888937753002,
+        "f4": -0.49546693583075385
+      },
+      "verdict": "recorded",
+      "waters": 288
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/Ic_222.gro",
+      "method": "f3f4",
+      "observed": {
+        "f3": 0.0003544976060102277,
+        "f4": -0.9929133939191469
+      },
+      "verdict": "recorded",
+      "waters": 64
+    },
+    {
+      "expected": null,
+      "fixture": "crystals/444_S1.gro",
+      "method": "steinhardt",
+      "observed": {
+        "qbar4": 0.13238796506926945,
+        "qbar6": 0.3236456214089465
+      },
+      "verdict": "recorded",
+      "waters": 2944
+    },
+    {
+      "expected": null,
+      "fixture": "crystals/222_S2.gro",
+      "method": "steinhardt",
+      "observed": {
+        "qbar4": 0.11895566834707016,
+        "qbar6": 0.3282517386815856
+      },
+      "verdict": "recorded",
+      "waters": 1088
+    },
+    {
+      "expected": null,
+      "fixture": "guests/sI_CH4_222.gro",
+      "method": "steinhardt",
+      "observed": {
+        "qbar4": 0.14092385652113903,
+        "qbar6": 0.3114125102009113
+      },
+      "verdict": "recorded",
+      "waters": 368
+    },
+    {
+      "expected": null,
+      "fixture": "reference/grade_prod.gro",
+      "method": "steinhardt",
+      "observed": {
+        "qbar4": 0.19461120224870881,
+        "qbar6": 0.2743663310737894
+      },
+      "verdict": "recorded",
+      "waters": 4500
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/sI_222.gro",
+      "method": "steinhardt",
+      "observed": {
+        "qbar4": 0.14108902672724377,
+        "qbar6": 0.31136845777301747
+      },
+      "verdict": "recorded",
+      "waters": 368
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/sII_222.gro",
+      "method": "steinhardt",
+      "observed": {
+        "qbar4": 0.1201591861262975,
+        "qbar6": 0.3262399949851029
+      },
+      "verdict": "recorded",
+      "waters": 1088
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/sH_222.gro",
+      "method": "steinhardt",
+      "observed": {
+        "qbar4": 0.1604666439431252,
+        "qbar6": 0.348541397858607
+      },
+      "verdict": "recorded",
+      "waters": 544
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/Ih_332.gro",
+      "method": "steinhardt",
+      "observed": {
+        "qbar4": 0.36892996866901623,
+        "qbar6": 0.5627333223098319
+      },
+      "verdict": "recorded",
+      "waters": 288
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/Ic_222.gro",
+      "method": "steinhardt",
+      "observed": {
+        "qbar4": 0.5074995746191406,
+        "qbar6": 0.6237263181080872
+      },
+      "verdict": "recorded",
+      "waters": 64
+    },
+    {
+      "expected": {
+        "largest_cluster": 64.0
+      },
+      "fixture": "guests/sI_CH4_222.gro",
+      "method": "mcg",
+      "observed": {
+        "largest_cluster": 64.0
+      },
+      "verdict": "exact",
+      "waters": 368
+    },
+    {
+      "expected": {
+        "largest_cluster": 192.0
+      },
+      "fixture": "guests/sII_CH4_222.gro",
+      "method": "mcg",
+      "observed": {
+        "largest_cluster": 192.0
+      },
+      "verdict": "exact",
+      "waters": 1088
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/sI_222.gro",
+      "method": "mcg",
+      "observed": {},
+      "verdict": "error: missing_input: guests",
+      "waters": 368
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/sII_222.gro",
+      "method": "mcg",
+      "observed": {},
+      "verdict": "error: missing_input: guests",
+      "waters": 1088
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/sH_222.gro",
+      "method": "mcg",
+      "observed": {},
+      "verdict": "error: missing_input: guests",
+      "waters": 544
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/Ih_332.gro",
+      "method": "mcg",
+      "observed": {},
+      "verdict": "error: missing_input: guests",
+      "waters": 288
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/Ic_222.gro",
+      "method": "mcg",
+      "observed": {},
+      "verdict": "error: missing_input: guests",
+      "waters": 64
+    },
+    {
+      "expected": null,
+      "fixture": "crystals/example_H2O_frame0.gro",
+      "method": "tetra",
+      "observed": {
+        "q": 0.7685895243787068,
+        "sg": 0.05785261890532398,
+        "sk": 0.0014568806794903635
+      },
+      "verdict": "recorded",
+      "waters": 3000
+    },
+    {
+      "expected": null,
+      "fixture": "crystals/222_S2.gro",
+      "method": "tetra",
+      "observed": {
+        "q": 0.9891829476617986,
+        "sg": 0.002704263084550091,
+        "sk": 0.00002781557314382282
+      },
+      "verdict": "recorded",
+      "waters": 1088
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/Ih_332.gro",
+      "method": "tetra",
+      "observed": {
+        "q": 0.9980395410168327,
+        "sg": 0.0004901147457918438,
+        "sk": 7.086883923048243e-6
+      },
+      "verdict": "recorded",
+      "waters": 288
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/sH_222.gro",
+      "method": "tetra",
+      "observed": {
+        "q": 0.9693859017561891,
+        "sg": 0.007653524560952828,
+        "sk": 7.440567940375614e-6
+      },
+      "verdict": "recorded",
+      "waters": 544
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/sI_222.gro",
+      "method": "tetra",
+      "observed": {
+        "q": 0.9822441154509787,
+        "sg": 0.004438971137255551,
+        "sk": 1.779172991929189e-6
+      },
+      "verdict": "recorded",
+      "waters": 368
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/sII_222.gro",
+      "method": "tetra",
+      "observed": {
+        "q": 0.987040466563892,
+        "sg": 0.003239883359026652,
+        "sk": 1.916043019134646e-6
+      },
+      "verdict": "recorded",
+      "waters": 1088
+    },
+    {
+      "expected": null,
+      "fixture": "benchmark/Ic_222.gro",
+      "method": "tetra",
+      "observed": {
+        "q": 0.9982026297747089,
+        "sg": 0.0004493425563227799,
+        "sk": 5.616745086995297e-7
+      },
+      "verdict": "recorded",
+      "waters": 64
+    }
+  ]
+}

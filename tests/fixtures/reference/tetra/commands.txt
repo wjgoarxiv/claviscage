@@ -1,0 +1,16 @@
+# crystals/example_H2O_frame0.gro
+gmx grompp -f grompp.mdp -c conf.gro -p topol.top -o topol.tpr -maxwarn 5
+gmx order -s topol.tpr -f input.gro -n index.ndx -Sg sg.xvg -Sk sk.xvg -o order.xvg -od deuter.xvg  (stdin: "0\n")
+#   Group     0 (             OW) has  3000 elements
+# crystals/222_S2.gro
+gmx grompp -f grompp.mdp -c conf.gro -p topol.top -o topol.tpr -maxwarn 5
+gmx order -s topol.tpr -f input.gro -n index.ndx -Sg sg.xvg -Sk sk.xvg -o order.xvg -od deuter.xvg  (stdin: "0\n")
+#   Group     0 (             OW) has  1088 elements
+# benchmark/Ih_332.gro
+gmx grompp -f grompp.mdp -c conf.gro -p topol.top -o topol.tpr -maxwarn 5
+gmx order -s topol.tpr -f input.gro -n index.ndx -Sg sg.xvg -Sk sk.xvg -o order.xvg -od deuter.xvg  (stdin: "0\n")
+#   Group     0 (             OW) has   288 elements
+# benchmark/sH_222.gro
+gmx grompp -f grompp.mdp -c conf.gro -p topol.top -o topol.tpr -maxwarn 5
+gmx order -s topol.tpr -f input.gro -n index.ndx -Sg sg.xvg -Sk sk.xvg -o order.xvg -od deuter.xvg  (stdin: "0\n")
+#   Group     0 (             OW) has   544 elements

@@ -1,0 +1,18 @@
+# This file was created Mon Nov  9 22:58:55 2026
+# Created by:
+#                      :-) GROMACS - gmx order, 2026.2 (-:
+# 
+# Executable:   /opt/homebrew/bin/gmx
+# Data prefix:  /opt/homebrew
+# Working dir:  (a temporary directory, removed after the run)
+# Command line:
+#   gmx -quiet order -s topol.tpr -f input.gro -n index.ndx -Sg sg.xvg -Sk sk.xvg -o order.xvg -od deuter.xvg
+# gmx order is part of G R O M A C S:
+#
+# GROup of MAchos and Cynical Suckers
+#
+@    title "S\sg\N Angle Order Parameter"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "S\sg\N"
+@TYPE xy
+0.000000 0.002704

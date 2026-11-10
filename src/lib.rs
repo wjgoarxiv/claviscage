@@ -24,6 +24,11 @@ pub mod py;
 
 #[cfg(feature = "pyo3")]
 pub mod result_occupancy;
+pub mod steinhardt;
+pub mod mcg;
+pub mod methods;
+pub mod run;
+pub mod tetra;
 
 use geometry::Cell;
 use serde::{Deserialize, Serialize};
@@ -254,6 +259,99 @@ pub fn calculate_f3_f4_cell(
     let result = order_params::calculate_f3_f4_cell(&waters, &cell, cutoff);
 
     serde_wasm_bindgen::to_value(&result).map_err(|e| JsValue::from_str(&e.to_string()))
+}
+
+/// Lechner–Dellago averaged Steinhardt q_l / q̄_l per water (default l = 4, 6; cutoff 0.35 nm).
+///
+/// `cell_dims` takes the same 3/6/9-value box formats as the other `*_cell` functions.
+#[wasm_bindgen]
+pub fn calculate_steinhardt(
+    waters_js: JsValue,
+    cell_dims: Vec<f64>,
+    cutoff: Option<f64>,
+    ls: Option<Vec<u32>>,
+) -> Result<JsValue, JsValue> {
+    let waters: Vec<Water> =
+        serde_wasm_bindgen::from_value(waters_js).map_err(|e| JsValue::from_str(&e.to_string()))?;
+    let cell = Cell::from_box_values(&cell_dims).map_err(|e| JsValue::from_str(&e))?;
+    let ls = ls.unwrap_or_else(|| vec![4, 6]);
+    let cutoff = cutoff.unwrap_or(steinhardt::DEFAULT_CUTOFF_NM);
+    steinhardt::check_inputs(&cell, cutoff, &ls).map_err(|e| JsValue::from_str(&e))?;
+    let result = steinhardt::calculate_steinhardt_cell(&waters, &cell, cutoff, &ls);
+    serde_wasm_bindgen::to_value(&result).map_err(|e| JsValue::from_str(&e.to_string()))
+}
+
+/// Mutually Coordinated Guest order parameter (Barnes et al. 2014). `params_js` may be
+/// `undefined` (MCG-3 defaults) or an object overriding any of `r_guest_nm`, `r_water_nm`,
+/// `phi_deg`, `n_water`, `n_count`.
+#[wasm_bindgen]
+pub fn calculate_mcg(
+    waters_js: JsValue,
+    guests_js: JsValue,
+    cell_dims: Vec<f64>,
+    params_js: JsValue,
+) -> Result<JsValue, JsValue> {
+    let waters: Vec<Water> =
+        serde_wasm_bindgen::from_value(waters_js).map_err(|e| JsValue::from_str(&e.to_string()))?;
+    let guests: Vec<Guest> =
+        serde_wasm_bindgen::from_value(guests_js).map_err(|e| JsValue::from_str(&e.to_string()))?;
+    let cell = Cell::from_box_values(&cell_dims).map_err(|e| JsValue::from_str(&e))?;
+    let params: mcg::McgParameters = if params_js.is_undefined() || params_js.is_null() {
+        mcg::McgParameters::default()
+    } else {
+        serde_wasm_bindgen::from_value(params_js).map_err(|e| JsValue::from_str(&e.to_string()))?
+    };
+    params.check(&cell).map_err(|e| JsValue::from_str(&e))?;
+    let result = mcg::calculate_mcg_cell(&waters, &guests, &cell, params);
+    // `guest_cluster` holds `None` for non-monomers; emit `null` as the Python surface does.
+    let serializer = serde_wasm_bindgen::Serializer::new().serialize_missing_as_null(true);
+    result.serialize(&serializer).map_err(|e| JsValue::from_str(&e.to_string()))
+}
+
+/// The published methods this engine implements, with citation, DOI and verification tier.
+#[wasm_bindgen]
+pub fn list_methods() -> Result<JsValue, JsValue> {
+    descriptor_value(&methods::list_methods())
+}
+
+/// Descriptors as the Python surface emits them: an absent optional field is `null`, not `undefined`.
+fn descriptor_value<T: Serialize>(value: &T) -> Result<JsValue, JsValue> {
+    let serializer = serde_wasm_bindgen::Serializer::new().serialize_missing_as_null(true);
+    value.serialize(&serializer).map_err(|e| JsValue::from_str(&e.to_string()))
+}
+
+/// Run any series method by id (see `describe_method`). `params_js` is `undefined` (defaults) or an
+/// object of descriptor parameter names to numbers. Errors throw a string that starts with the
+/// error code (`unknown_method`, `param_out_of_range`, `missing_input`, ...).
+#[wasm_bindgen]
+pub fn run_method(
+    id: &str,
+    waters_js: JsValue,
+    guests_js: JsValue,
+    cell_dims: Vec<f64>,
+    params_js: JsValue,
+    with_molecules: Option<bool>,
+) -> Result<JsValue, JsValue> {
+    let err = |e: String| JsValue::from_str(&e);
+    let waters: Vec<Water> = serde_wasm_bindgen::from_value(waters_js).map_err(|e| err(e.to_string()))?;
+    let guests: Vec<Guest> = serde_wasm_bindgen::from_value(guests_js).map_err(|e| err(e.to_string()))?;
+    let params: std::collections::BTreeMap<String, f64> = if params_js.is_undefined() || params_js.is_null() {
+        Default::default()
+    } else {
+        serde_wasm_bindgen::from_value(params_js).map_err(|e| err(format!("invalid: params {e}")))?
+    };
+    let out = run::run_method(id, &waters, &guests, &cell_dims, &params, with_molecules.unwrap_or(false))
+        .map_err(|e| err(e.to_string()))?;
+    // Plain objects for the keyed maps, and `null` for MCG's non-monomer guests as `calculate_mcg` emits.
+    let serializer = serde_wasm_bindgen::Serializer::new().serialize_missing_as_null(true).serialize_maps_as_objects(true);
+    out.serialize(&serializer).map_err(|e| err(e.to_string()))
+}
+
+/// One method's descriptor, or an error for an unknown id.
+#[wasm_bindgen]
+pub fn describe_method(id: &str) -> Result<JsValue, JsValue> {
+    let m = methods::describe_method(id).ok_or_else(|| JsValue::from_str(&format!("unknown method: {id}")))?;
+    descriptor_value(&m)
 }
 
 /// CHILL+ structure identification: classify each water into 6 classes

@@ -51,7 +51,7 @@ WebAssembly. The workspace is a five-step panel beside the 3D scene:
 | Step | What you do there |
 |---|---|
 | **01 View** | Camera (perspective / orthographic), axis views, PBC box, atom and bond styles, view or select mode |
-| **02 Analyze** | Choose TRACE, HTR, GRADE or CHILL+; F3 / F4; set the frame range for a trajectory |
+| **02 Analyze** | Build a pipeline from TRACE, HTR, GRADE, CHILL+, F3/F4, averaged q4/q6, MCG-3 and tetrahedral order; set the frame range for a trajectory |
 | **03 Results** | Cage counts by type, SEC / nSEC / IC, occupancy, charts over frames, CSV and JSON export |
 | **04 Layers** | Add structure files as layers, pick the analysis layer, style each layer and residue |
 | **05 Render** | Output frame and size, standard or path-traced PNG, frame sequences, MP4, Blender bundle |
@@ -72,9 +72,9 @@ offline.
 </td>
 <td width="33%" valign="top">
 
-**🧊 Seven analyses**<br>
-TRACE, HTR, GRADE, CHILL+, F3 / F4, guest occupancy and minimum-image periodic distances, on one
-loaded system.
+**🧊 Ten analyses**<br>
+TRACE, HTR, GRADE, CHILL+, F3 / F4, averaged q4 / q6, MCG-3, tetrahedral order, guest occupancy and
+minimum-image periodic distances, on one loaded system.
 
 </td>
 <td width="33%" valign="top">
@@ -150,12 +150,32 @@ The [documentation](https://docs.claviscage.app/introduction) walks through
 | **GRADE** | `5^12`, `5^12·6^2`, `5^12·6^4` and filled-cage counts | [grade.md](docs/methods/grade.md) | [docs](https://docs.claviscage.app/analysis/grade) |
 | **CHILL+** | Per-water ice / hydrate / interfacial / liquid classes | [chill-plus.md](docs/methods/chill-plus.md) | [docs](https://docs.claviscage.app/analysis/chill-plus) |
 | **F3 / F4** | Three-body and torsional water-order parameters | [f3-f4.md](docs/methods/f3-f4.md) | [docs](https://docs.claviscage.app/analysis/f3f4) |
+| **Averaged q4 / q6** | Locally averaged Steinhardt bond-orientational order per water (Lechner & Dellago) | [steinhardt.md](docs/methods/steinhardt.md) | — |
+| **MCG-3** | Size of the largest mutually coordinated guest cluster (Barnes et al.) | [mcg.md](docs/methods/mcg.md) | — |
+| **Tetrahedral order** | q (Errington & Debenedetti) with S_g and S_k (Chau & Hardwick) per water | [tetrahedral-order.md](docs/methods/tetrahedral-order.md) | — |
 | **Occupancy** | θ_S, θ_L and overall guest occupancy | [occupancy.md](docs/methods/occupancy.md) | [docs](https://docs.claviscage.app/analysis/occupancy) |
 | **Periodic boundaries** | Minimum-image distances in orthorhombic and triclinic cells | [mic-pbc.md](docs/methods/mic-pbc.md) | — |
 
 Each analysis runs on the current frame, and TRACE, HTR, GRADE, F3 / F4 and CHILL+ also run over a
 chosen *start / end / step* range of a trajectory, with a chart per frame. Each result keeps the
 algorithm and the frame it came from, so results from different methods are never merged.
+
+### Method registry and verification levels
+
+The engine describes each method it implements (`list_methods`, `describe_method`) and runs any
+series method by id with `run_method`, in WebAssembly and in Python. Each descriptor carries the
+citation, DOI, parameters with ranges and a verification level:
+
+| Level | Meaning | Methods |
+|---|---|---|
+| **T3** | Matches the authors' own program on the reference inputs | TRACE, HTR, GRADE |
+| **T2** | Matches an established open implementation | Averaged q4 / q6, tetrahedral order |
+| **T1** | Implemented from the paper, checked on cases with known answers | CHILL+, F3 / F4, MCG-3 |
+| **T0** | Implemented from the paper only | none at present |
+
+HTR is implemented from the paper and checked against the authors' published program; that program
+carries no licence, and its code is not included here. Details are in
+[`docs/methods/method-registry.md`](docs/methods/method-registry.md).
 
 ## 🎛️ Viewing and styling
 
@@ -236,27 +256,30 @@ H-bond data and one cage analysis with its parameters. Its shape is described in
 ## 🦀 Engine
 
 The analysis engine is a Rust crate in this repository (`src/`), licensed under GPL-3.0-or-later.
-It holds the parser, periodic geometry, H-bond network, TRACE, HTR, GRADE, CHILL+, F3/F4 and guest
-occupancy. The web app runs the same code as WebAssembly, and the Blender extension loads it as a
+It holds the parser, periodic geometry, H-bond network, TRACE, HTR, GRADE, CHILL+, F3/F4, averaged
+Steinhardt q4/q6, MCG-3, tetrahedral order, guest occupancy and the method registry (version
+0.3.18). The web app runs the same code as WebAssembly, and the Blender extension loads it as a
 Python wheel.
 
 ```bash
 cargo test --lib                                   # unit and reference tests
+cargo test --release                               # all tests, including the benchmark table (several minutes)
 cargo build --release --features cli               # command-line tool
 ./target/release/clavis-cli trace tests/fixtures/crystals/222_S2.gro   # chill | trace | htr | grade | f3f4
 maturin build --release --features pyo3            # Python wheel (import clavis_engine)
 ```
 
 Requires a Rust 2021 toolchain; the wheel needs Python 3.11 or later and `maturin`. Reference
-inputs live in `tests/fixtures/`: GenIce2 sI and sII crystals, the first frame of the TRACE
-example, and the files the reference programs were run on, with their expected outputs.
+inputs live in `tests/fixtures/`: GenIce2 sI, sII, sH, Ih and Ic crystals, CH4-filled sI and sII
+crystals, the first frame of the TRACE example, and the files the reference programs were run on,
+with their expected outputs. `benchmarks/results.json` holds the benchmark table.
 
 ## 📚 Citing
 
 [`CITATION.cff`](CITATION.cff) cites ClavisCage and lists the TRACE, HTR, HTR+, GRADE and CHILL+ papers
-with DOIs; GitHub's *Cite this repository* button reads it. F3, F4, occupancy and the minimum-image
-convention have no paper record here yet. If you report results from a method, please cite its paper
-as well.
+with DOIs; GitHub's *Cite this repository* button reads it. The papers for F3 / F4, averaged
+q4 / q6, MCG-3 and tetrahedral order are listed below. Occupancy and the minimum-image convention
+have no paper record here yet. If you report results from a method, please cite its paper as well.
 
 <details>
 <summary>Method papers</summary>
@@ -266,6 +289,10 @@ as well.
 - Q. Shi, Z. Lin, Y. Qu, J. Wu and Z. Zhang, *J. Phys.: Condens. Matter* 36 (2024) 365901 (HTR+). [10.1088/1361-648X/ad52df](https://doi.org/10.1088/1361-648X/ad52df)
 - F. Mahmoudinobar and C. L. Dias, *Comput. Phys. Commun.* 244 (2019) 385–391. [10.1016/j.cpc.2019.06.004](https://doi.org/10.1016/j.cpc.2019.06.004)
 - A. H. Nguyen and V. Molinero, *J. Phys. Chem. B* 119 (2015) 9369–9376. [10.1021/jp510289t](https://doi.org/10.1021/jp510289t)
+- Rodger et al., *Fluid Phase Equilib.* 116 (1996) 326, and Moon et al., *Faraday Discuss.* 136 (2007) 367 (F3 / F4). [10.1039/b618194p](https://doi.org/10.1039/b618194p)
+- Lechner and Dellago, *J. Chem. Phys.* 129 (2008) 114707 (averaged q4 / q6). [10.1063/1.2977970](https://doi.org/10.1063/1.2977970)
+- Barnes, Beckham, Wu and Sum, *J. Chem. Phys.* 140 (2014) 164506 (MCG). [10.1063/1.4871898](https://doi.org/10.1063/1.4871898)
+- Errington and Debenedetti, *Nature* 409 (2001) 318 (q), and Chau and Hardwick, *Mol. Phys.* 93 (1998) 511 (S_g, S_k). [10.1038/35053024](https://doi.org/10.1038/35053024)
 
 </details>
 
@@ -275,7 +302,8 @@ as well.
 src/                the Rust engine (GPL-3.0-or-later)
 tests/              reference tests and fixtures
 pytests/            Python binding tests
-docs/methods/       how each analysis works and which defaults it uses
+benchmarks/         benchmark table: every method on ideal crystals
+docs/methods/       how each analysis works, which defaults it uses, and the method registry
 docs/validation/    reference figures the engine reproduces
 docs/schema/        the .claviscage.zip bundle, in prose
 schema/             JSON Schema draft for the bundle

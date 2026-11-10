@@ -16,7 +16,10 @@ use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
 
 use crate::geometry::Cell;
-use crate::{cage, chill, grade, hbond, htr, occupancy, order_params, parser, result_occupancy};
+use crate::{
+    cage, chill, grade, hbond, htr, mcg, methods, occupancy, order_params, parser, result_occupancy,
+    steinhardt,
+};
 use crate::{GradeResult, Guest, Water};
 
 /// Analyses supported by [`run`]. Cutoff defaults mirror `clavis-cli` / `lib.rs`.
@@ -29,6 +32,8 @@ const ANALYSES: &[&str] = &[
     "guest_centric",
     "f3f4",
     "grade",
+    "steinhardt",
+    "mcg",
 ];
 
 /// Dispatch one analysis over already-parsed waters/guests and serialize it to JSON.
@@ -46,6 +51,21 @@ fn run(
     cutoff: Option<f64>,
     theta: Option<f64>,
 ) -> Result<String, String> {
+    // Methods added after the CLI contract was fixed run on the general cell for every box form.
+    if kind == "steinhardt" || kind == "mcg" {
+        let cell = Cell::from_box_values(box_dims)?;
+        // Python takes the published defaults only (l = 4, 6; MCG-3); WASM also accepts overrides.
+        let json = if kind == "steinhardt" {
+            let cutoff = cutoff.unwrap_or(steinhardt::DEFAULT_CUTOFF_NM);
+            steinhardt::check_inputs(&cell, cutoff, &[4, 6])?;
+            serde_json::to_string(&steinhardt::calculate_steinhardt_cell(waters, &cell, cutoff, &[4, 6]))
+        } else {
+            let params = mcg::McgParameters::default();
+            params.check(&cell)?;
+            serde_json::to_string(&mcg::calculate_mcg_cell(waters, guests, &cell, params))
+        };
+        return json.map_err(|e| e.to_string());
+    }
     match box_dims.len() {
         3 => run_ortho(
             waters,
@@ -259,7 +279,8 @@ fn parse_gro(content: &str) -> PyResult<String> {
 }
 
 /// Parse GRO text and run `kind`, returning the analysis as a JSON string.
-/// This mirrors `clavis-cli <kind> <file.gro>` exactly.
+/// For the kinds `clavis-cli` also offers, this mirrors `clavis-cli <kind> <file.gro>` exactly;
+/// `steinhardt` and `mcg` are available here and in WASM only.
 #[pyfunction]
 #[pyo3(signature = (content, kind, cutoff=None, theta=None))]
 fn analyze_gro(
@@ -300,6 +321,44 @@ fn analyze_waters(
     run(&waters, &guests, &box_dims, kind, cutoff, theta).map_err(PyValueError::new_err)
 }
 
+/// The published methods this engine implements, with citation, DOI and verification tier.
+#[pyfunction]
+fn list_methods() -> PyResult<String> {
+    serde_json::to_string(&methods::list_methods()).map_err(|e| PyValueError::new_err(e.to_string()))
+}
+
+/// One method's descriptor, or ValueError for an unknown id.
+#[pyfunction]
+fn describe_method(id: &str) -> PyResult<String> {
+    let m = methods::describe_method(id).ok_or_else(|| PyValueError::new_err(format!("unknown method: {id}")))?;
+    serde_json::to_string(&m).map_err(|e| PyValueError::new_err(e.to_string()))
+}
+
+/// Run any series method by id (see `describe_method`). `params_json` is an object of
+/// descriptor parameter names to numbers, or None for the defaults. Errors raise ValueError
+/// whose message starts with the error code (`unknown_method`, `param_out_of_range`, ...).
+#[pyfunction]
+#[pyo3(signature = (id, waters_json, guests_json, box_dims, params_json=None, with_molecules=false))]
+fn run_method(
+    id: &str,
+    waters_json: &str,
+    guests_json: &str,
+    box_dims: Vec<f64>,
+    params_json: Option<&str>,
+    with_molecules: bool,
+) -> PyResult<String> {
+    let err = |e: String| PyValueError::new_err(e);
+    let waters: Vec<Water> = serde_json::from_str(waters_json).map_err(|e| err(e.to_string()))?;
+    let guests: Vec<Guest> = serde_json::from_str(guests_json).map_err(|e| err(e.to_string()))?;
+    let params: std::collections::BTreeMap<String, f64> = match params_json {
+        Some(text) => serde_json::from_str(text).map_err(|e| err(format!("invalid: params {e}")))?,
+        None => Default::default(),
+    };
+    let out = crate::run::run_method(id, &waters, &guests, &box_dims, &params, with_molecules)
+        .map_err(|e| err(e.to_string()))?;
+    serde_json::to_string(&out).map_err(|e| err(e.to_string()))
+}
+
 /// Calculate occupancy from an already-computed TRACE, HTR, or GRADE result.
 #[pyfunction]
 fn calculate_occupancy_from_result(
@@ -323,5 +382,8 @@ fn clavis_engine(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(analyze_gro, m)?)?;
     m.add_function(wrap_pyfunction!(analyze_waters, m)?)?;
     m.add_function(wrap_pyfunction!(calculate_occupancy_from_result, m)?)?;
+    m.add_function(wrap_pyfunction!(list_methods, m)?)?;
+    m.add_function(wrap_pyfunction!(describe_method, m)?)?;
+    m.add_function(wrap_pyfunction!(run_method, m)?)?;
     Ok(())
 }

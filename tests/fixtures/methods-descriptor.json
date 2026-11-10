@@ -1,0 +1,513 @@
+[
+  {
+    "id": "trace",
+    "name": "TRACE",
+    "kind": "cage_detector",
+    "citation": "Hsu & Lin, J. Chem. Theory Comput. 21 (2025) 11436",
+    "doi": "10.1021/acs.jctc.5c01459",
+    "tier": "author_code",
+    "verified_against": "Port of the authors' TRACE program; exact cage counts on sI/sII crystals",
+    "descriptor_version": 1,
+    "level": "t3",
+    "licence": "GPL-3.0-or-later",
+    "ported_from": "TRACE (GPL-3.0-or-later)",
+    "inputs": {
+      "hydrogens": true,
+      "guests": false
+    },
+    "params": [
+      {
+        "name": "cutoff_nm",
+        "label": "H-bond O–O cutoff",
+        "unit": "nm",
+        "default": 0.36,
+        "min": 0.25,
+        "max": 0.45,
+        "step": 0.01,
+        "integer": false
+      },
+      {
+        "name": "theta_deg",
+        "label": "H-bond angle",
+        "unit": "deg",
+        "default": 35.0,
+        "min": 20.0,
+        "max": 45.0,
+        "step": 1.0,
+        "integer": false
+      }
+    ],
+    "series": [
+      {
+        "key": "n_cages",
+        "label": "Cages",
+        "unit": ""
+      }
+    ],
+    "molecule_values": [],
+    "views": [
+      "metric_chart",
+      "cage_view"
+    ],
+    "fixtures": [
+      "crystals/222_S2.gro",
+      "crystals/444_S1.gro"
+    ],
+    "spec_gaps": []
+  },
+  {
+    "id": "htr",
+    "name": "HTR",
+    "kind": "cage_detector",
+    "citation": "Liu et al., Nanotechnol. Rev. 11 (2022) 699",
+    "doi": "10.1515/ntrev-2022-0044",
+    "tier": "author_code",
+    "verified_against": "Checked against the authors' published HTR program",
+    "descriptor_version": 1,
+    "level": "t3",
+    "licence": "GPL-3.0-or-later",
+    "ported_from": null,
+    "inputs": {
+      "hydrogens": true,
+      "guests": false
+    },
+    "params": [
+      {
+        "name": "cutoff_nm",
+        "label": "H-bond O–O cutoff",
+        "unit": "nm",
+        "default": 0.36,
+        "min": 0.25,
+        "max": 0.45,
+        "step": 0.01,
+        "integer": false
+      },
+      {
+        "name": "theta_deg",
+        "label": "H-bond angle",
+        "unit": "deg",
+        "default": 35.0,
+        "min": 20.0,
+        "max": 45.0,
+        "step": 1.0,
+        "integer": false
+      }
+    ],
+    "series": [
+      {
+        "key": "n_cages",
+        "label": "Cages",
+        "unit": ""
+      }
+    ],
+    "molecule_values": [],
+    "views": [
+      "metric_chart",
+      "cage_view"
+    ],
+    "fixtures": [
+      "reference/htr_1242.gro",
+      "crystals/222_S2.gro"
+    ],
+    "spec_gaps": []
+  },
+  {
+    "id": "grade",
+    "name": "GRADE",
+    "kind": "cage_detector",
+    "citation": "Mahmoudinobar & Dias, Comput. Phys. Commun. 244 (2019) 385",
+    "doi": "10.1016/j.cpc.2019.06.004",
+    "tier": "author_code",
+    "verified_against": "Step-by-step port of GRADE v1.00; equal counts on six reference inputs",
+    "descriptor_version": 1,
+    "level": "t3",
+    "licence": "GPL-3.0-or-later",
+    "ported_from": "GRADE v1.00 (GPL-3.0-or-later)",
+    "inputs": {
+      "hydrogens": false,
+      "guests": false
+    },
+    "params": [
+      {
+        "name": "cutoff_nm",
+        "label": "H-bond O–O cutoff",
+        "unit": "nm",
+        "default": 0.35,
+        "min": 0.25,
+        "max": 0.45,
+        "step": 0.01,
+        "integer": false
+      },
+      {
+        "name": "theta_deg",
+        "label": "H-bond angle",
+        "unit": "deg",
+        "default": 45.0,
+        "min": 20.0,
+        "max": 45.0,
+        "step": 1.0,
+        "integer": false
+      }
+    ],
+    "series": [
+      {
+        "key": "n_cages",
+        "label": "Cages",
+        "unit": ""
+      }
+    ],
+    "molecule_values": [],
+    "views": [
+      "metric_chart",
+      "cage_view"
+    ],
+    "fixtures": [
+      "reference/grade_222_s1.gro",
+      "reference/grade_222_s2.gro",
+      "reference/grade_prod.gro"
+    ],
+    "spec_gaps": []
+  },
+  {
+    "id": "chill",
+    "name": "CHILL+",
+    "kind": "water_classifier",
+    "citation": "Nguyen & Molinero, J. Phys. Chem. B 119 (2015) 9369",
+    "doi": "10.1021/jp510289t",
+    "tier": "paper",
+    "verified_against": "Paper definitions and documented thresholds; every water of the reference crystals is classed as hydrate",
+    "descriptor_version": 1,
+    "level": "t1",
+    "licence": "GPL-3.0-or-later",
+    "ported_from": null,
+    "inputs": {
+      "hydrogens": false,
+      "guests": false
+    },
+    "params": [
+      {
+        "name": "cutoff_nm",
+        "label": "Neighbour cutoff",
+        "unit": "nm",
+        "default": 0.35,
+        "min": 0.3,
+        "max": 0.4,
+        "step": 0.005,
+        "integer": false
+      }
+    ],
+    "series": [
+      {
+        "key": "liquid",
+        "label": "Liquid / other",
+        "unit": "fraction"
+      },
+      {
+        "key": "ice_ih",
+        "label": "Hexagonal ice",
+        "unit": "fraction"
+      },
+      {
+        "key": "ice_ic",
+        "label": "Cubic ice",
+        "unit": "fraction"
+      },
+      {
+        "key": "interfacial_ice",
+        "label": "Interfacial ice",
+        "unit": "fraction"
+      },
+      {
+        "key": "hydrate",
+        "label": "Hydrate",
+        "unit": "fraction"
+      },
+      {
+        "key": "interfacial_hydrate",
+        "label": "Interfacial hydrate",
+        "unit": "fraction"
+      }
+    ],
+    "molecule_values": [
+      {
+        "key": "class",
+        "label": "CHILL+ class",
+        "unit": "class"
+      }
+    ],
+    "views": [
+      "metric_chart",
+      "molecule_colour"
+    ],
+    "fixtures": [
+      "crystals/222_S2.gro"
+    ],
+    "spec_gaps": []
+  },
+  {
+    "id": "f3f4",
+    "name": "F3/F4",
+    "kind": "order_parameter",
+    "citation": "Rodger et al., Fluid Phase Equilib. 116 (1996) 326; Moon et al., Faraday Discuss. 136 (2007) 367",
+    "doi": "10.1039/b618194p",
+    "tier": "paper",
+    "verified_against": "Published definitions; F4 pair rule follows the CalF4 program distributed with GRADE",
+    "descriptor_version": 1,
+    "level": "t1",
+    "licence": "GPL-3.0-or-later",
+    "ported_from": null,
+    "inputs": {
+      "hydrogens": true,
+      "guests": false
+    },
+    "params": [
+      {
+        "name": "cutoff_nm",
+        "label": "Neighbour cutoff",
+        "unit": "nm",
+        "default": 0.35,
+        "min": 0.3,
+        "max": 0.4,
+        "step": 0.005,
+        "integer": false
+      }
+    ],
+    "series": [
+      {
+        "key": "f3",
+        "label": "F3",
+        "unit": ""
+      },
+      {
+        "key": "f4",
+        "label": "F4",
+        "unit": ""
+      }
+    ],
+    "molecule_values": [
+      {
+        "key": "f3",
+        "label": "F3",
+        "unit": ""
+      },
+      {
+        "key": "f4",
+        "label": "F4",
+        "unit": ""
+      }
+    ],
+    "views": [
+      "metric_chart",
+      "molecule_colour"
+    ],
+    "fixtures": [
+      "inline: sI and sH water clusters vs F4SPC values"
+    ],
+    "spec_gaps": []
+  },
+  {
+    "id": "steinhardt",
+    "name": "Averaged Steinhardt q4/q6",
+    "kind": "order_parameter",
+    "citation": "Lechner & Dellago, J. Chem. Phys. 129 (2008) 114707",
+    "doi": "10.1063/1.2977970",
+    "tier": "reference_implementation",
+    "verified_against": "freud Steinhardt(average=True), per-water agreement within its float32 precision",
+    "descriptor_version": 1,
+    "level": "t2",
+    "licence": "GPL-3.0-or-later",
+    "ported_from": null,
+    "inputs": {
+      "hydrogens": false,
+      "guests": false
+    },
+    "params": [
+      {
+        "name": "cutoff_nm",
+        "label": "Neighbour cutoff",
+        "unit": "nm",
+        "default": 0.35,
+        "min": 0.3,
+        "max": 0.4,
+        "step": 0.005,
+        "integer": false
+      }
+    ],
+    "series": [
+      {
+        "key": "qbar4",
+        "label": "q̄4",
+        "unit": ""
+      },
+      {
+        "key": "qbar6",
+        "label": "q̄6",
+        "unit": ""
+      }
+    ],
+    "molecule_values": [
+      {
+        "key": "qbar4",
+        "label": "q̄4",
+        "unit": ""
+      },
+      {
+        "key": "qbar6",
+        "label": "q̄6",
+        "unit": ""
+      }
+    ],
+    "views": [
+      "metric_chart",
+      "molecule_colour"
+    ],
+    "fixtures": [
+      "crystals/444_S1.gro",
+      "crystals/222_S2.gro",
+      "guests/sI_CH4_222.gro",
+      "reference/grade_prod.gro"
+    ],
+    "spec_gaps": []
+  },
+  {
+    "id": "mcg",
+    "name": "MCG",
+    "kind": "order_parameter",
+    "citation": "Barnes, Beckham, Wu & Sum, J. Chem. Phys. 140 (2014) 164506",
+    "doi": "10.1063/1.4871898",
+    "tier": "paper",
+    "verified_against": "Paper definitions (MCG-3); hand-built pairs and fully occupied sI/sII crystals",
+    "descriptor_version": 1,
+    "level": "t1",
+    "licence": "GPL-3.0-or-later",
+    "ported_from": null,
+    "inputs": {
+      "hydrogens": false,
+      "guests": true
+    },
+    "params": [
+      {
+        "name": "r_guest_nm",
+        "label": "Guest–guest distance",
+        "unit": "nm",
+        "default": 0.9,
+        "min": 0.5,
+        "max": 1.5,
+        "step": 0.05,
+        "integer": false
+      },
+      {
+        "name": "r_water_nm",
+        "label": "Guest–water distance",
+        "unit": "nm",
+        "default": 0.6,
+        "min": 0.3,
+        "max": 1.0,
+        "step": 0.05,
+        "integer": false
+      },
+      {
+        "name": "phi_deg",
+        "label": "Cone angle",
+        "unit": "deg",
+        "default": 45.0,
+        "min": 15.0,
+        "max": 90.0,
+        "step": 1.0,
+        "integer": false
+      },
+      {
+        "name": "n_water",
+        "label": "Shared waters",
+        "unit": "",
+        "default": 5.0,
+        "min": 1.0,
+        "max": 10.0,
+        "step": 1.0,
+        "integer": true
+      },
+      {
+        "name": "n_count",
+        "label": "MCG-n",
+        "unit": "",
+        "default": 3.0,
+        "min": 1.0,
+        "max": 6.0,
+        "step": 1.0,
+        "integer": true
+      }
+    ],
+    "series": [
+      {
+        "key": "largest_cluster",
+        "label": "Largest MCG cluster",
+        "unit": "guests"
+      }
+    ],
+    "molecule_values": [],
+    "views": [
+      "metric_chart"
+    ],
+    "fixtures": [
+      "guests/sI_CH4_222.gro",
+      "guests/sII_CH4_222.gro"
+    ],
+    "spec_gaps": []
+  },
+  {
+    "id": "tetra",
+    "name": "Tetrahedral order",
+    "kind": "order_parameter",
+    "citation": "Errington & Debenedetti, Nature 409 (2001) 318; Chau & Hardwick, Mol. Phys. 93 (1998) 511",
+    "doi": "10.1038/35053024",
+    "tier": "reference_implementation",
+    "verified_against": "GROMACS 2026.2 gmx order -Sg -Sk: frame means of S_g and S_k within 2e-6 on a liquid frame and three crystals",
+    "descriptor_version": 1,
+    "level": "t2",
+    "licence": "GPL-3.0-or-later",
+    "ported_from": null,
+    "inputs": {
+      "hydrogens": false,
+      "guests": false
+    },
+    "params": [],
+    "series": [
+      {
+        "key": "q",
+        "label": "Tetrahedral order q",
+        "unit": ""
+      },
+      {
+        "key": "sg",
+        "label": "Angular order S_g",
+        "unit": ""
+      },
+      {
+        "key": "sk",
+        "label": "Distance order S_k",
+        "unit": ""
+      }
+    ],
+    "molecule_values": [
+      {
+        "key": "q",
+        "label": "Tetrahedral order q",
+        "unit": ""
+      }
+    ],
+    "views": [
+      "metric_chart",
+      "molecule_colour"
+    ],
+    "fixtures": [
+      "crystals/example_H2O_frame0.gro",
+      "crystals/222_S2.gro",
+      "benchmark/Ih_332.gro",
+      "benchmark/sH_222.gro"
+    ],
+    "spec_gaps": [
+      "Neighbours: the papers say the four nearest neighbours; taken as the four nearest oxygens under the minimum image, with no cutoff, ties keeping the lower index (as gmx order)",
+      "S_k normalisation: the mean distance is that of the same four neighbours, giving the sum of squared deviations over 12 r_mean^2 (as gmx order)"
+    ]
+  }
+]

@@ -106,7 +106,7 @@ def generate_spdx(
         packages.append(item)
         package_by_id[package["id"]] = item
     root_package = next(
-        item for item in packages if item["name"] == "clavis-wasm" and item["versionInfo"] == "0.3.17"
+        item for item in packages if item["name"] == "clavis-wasm" and item["versionInfo"] == "0.3.18"
     )
     relationships = [
         {
@@ -144,8 +144,8 @@ def generate_spdx(
         "spdxVersion": "SPDX-2.3",
         "dataLicense": "CC0-1.0",
         "SPDXID": "SPDXRef-DOCUMENT",
-        "name": "clavis-engine-0.3.17-release-artifacts",
-        "documentNamespace": f"https://claviscage.app/spdx/0.3.17/{source_commit}/{tree_digest}",
+        "name": "clavis-engine-0.3.18-release-artifacts",
+        "documentNamespace": f"https://claviscage.app/spdx/0.3.18/{source_commit}/{tree_digest}",
         "creationInfo": {
             "created": _creation_timestamp(engine_root),
             "creators": ["Tool: ClavisCage release_metadata.py"],

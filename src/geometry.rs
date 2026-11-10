@@ -86,6 +86,17 @@ impl Cell {
         self.vectors
     }
 
+    /// Smallest distance between opposite cell faces. A spherical cutoff below half of it
+    /// sees at most one periodic image of any neighbour.
+    pub fn min_width(&self) -> f64 {
+        let [a, b, c] = self.vectors;
+        let volume = dot3(&a, &cross3(&b, &c)).abs();
+        [cross3(&b, &c), cross3(&c, &a), cross3(&a, &b)]
+            .iter()
+            .map(|n| volume / norm3(n))
+            .fold(f64::INFINITY, f64::min)
+    }
+
     /// Apply minimum image convention to a Cartesian displacement vector.
     #[inline]
     pub fn mic_delta(&self, delta: [f64; 3]) -> [f64; 3] {

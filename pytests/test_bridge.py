@@ -45,7 +45,7 @@ def _cli(kind: str, cutoff: float) -> dict:
 
 
 def test_version():
-    assert ce.version() == "0.3.17"
+    assert ce.version() == "0.3.18"
 
 
 def test_source_identity_is_exposed_by_the_loaded_native_engine():
