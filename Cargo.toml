@@ -1,6 +1,6 @@
 [package]
 name = "clavis-wasm"
-version = "0.3.16"
+version = "0.3.17"
 edition = "2021"
 authors = ["Woojin Go", "Junghoon Mok", "Yongwon Seo"]
 description = "High-performance hydrate cage analysis running in WebAssembly"

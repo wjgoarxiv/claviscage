@@ -7,9 +7,14 @@ repository; the web app itself is not (see `NOTICE.md`).
 ## Unreleased — analysis engine
 
 ### Added
-- The ClavisCage analysis engine (Rust crate, v0.3.16) under GPL-3.0-or-later: `src/`, reference
+- The ClavisCage analysis engine (Rust crate, v0.3.17) under GPL-3.0-or-later: `src/`, reference
   tests and fixtures in `tests/`, Python binding tests in `pytests/`, `LICENSE.txt` and `NOTICE`.
 - README section on building, testing and running the command-line tool.
+
+### Fixed
+- Triclinic `.gro` boxes keep their tilt: the parser returns all nine box values (`box_vectors`),
+  and the Python binding and `clavis-cli` use the full cell. TRACE and HTR now find 48/32/16
+  cages on a GenIce2 sH 2×2×2 crystal (fixture `tests/fixtures/crystals/222_SH.gro`).
 
 ### Changed
 - The documentation licence file is now `LICENSE-docs.md` (CC BY 4.0, unchanged terms).

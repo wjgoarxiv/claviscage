@@ -29,14 +29,14 @@ def test_source_tree_digest_is_content_addressed_and_ignores_build_output(tmp_pa
 
 
 def test_spdx_validation_rejects_a_wheel_hash_mismatch(tmp_path: Path):
-    wheel = tmp_path / "clavis_engine-0.3.16-cp311-abi3-test.whl"
+    wheel = tmp_path / "clavis_engine-0.3.17-cp311-abi3-test.whl"
     wheel.write_bytes(b"wheel")
     sbom = tmp_path / "engine.spdx.json"
     sbom.write_text(
         json.dumps(
             {
                 "spdxVersion": "SPDX-2.3",
-                "packages": [{"name": "clavis-wasm", "versionInfo": "0.3.16"}],
+                "packages": [{"name": "clavis-wasm", "versionInfo": "0.3.17"}],
                 "files": [
                     {
                         "fileName": wheel.name,
@@ -48,11 +48,11 @@ def test_spdx_validation_rejects_a_wheel_hash_mismatch(tmp_path: Path):
         )
     )
     with pytest.raises(ValueError, match="wheel hash"):
-        release_metadata.validate_spdx(sbom, [wheel], "0.3.16")
+        release_metadata.validate_spdx(sbom, [wheel], "0.3.17")
 
 
 def test_spdx_validation_accepts_exact_wheel_hash(tmp_path: Path):
-    wheel = tmp_path / "clavis_engine-0.3.16-cp311-abi3-test.whl"
+    wheel = tmp_path / "clavis_engine-0.3.17-cp311-abi3-test.whl"
     wheel.write_bytes(b"wheel")
     digest = hashlib.sha256(wheel.read_bytes()).hexdigest()
     sbom = tmp_path / "engine.spdx.json"
@@ -60,7 +60,7 @@ def test_spdx_validation_accepts_exact_wheel_hash(tmp_path: Path):
         json.dumps(
             {
                 "spdxVersion": "SPDX-2.3",
-                "packages": [{"name": "clavis-wasm", "versionInfo": "0.3.16"}],
+                "packages": [{"name": "clavis-wasm", "versionInfo": "0.3.17"}],
                 "files": [
                     {
                         "fileName": wheel.name,
@@ -71,14 +71,14 @@ def test_spdx_validation_accepts_exact_wheel_hash(tmp_path: Path):
             }
         )
     )
-    release_metadata.validate_spdx(sbom, [wheel], "0.3.16")
+    release_metadata.validate_spdx(sbom, [wheel], "0.3.17")
 
 
 def test_spdx_generation_includes_pyo3_graph_and_every_supplied_wheel(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
 ):
-    engine_wheel = tmp_path / "clavis_engine-0.3.16-cp311-abi3-test.whl"
+    engine_wheel = tmp_path / "clavis_engine-0.3.17-cp311-abi3-test.whl"
     dependency_wheel = tmp_path / "numpy-2.5.1-cp313-cp313-test.whl"
     engine_wheel.write_bytes(b"engine")
     dependency_wheel.write_bytes(b"dependency")

@@ -45,7 +45,7 @@ def _cli(kind: str, cutoff: float) -> dict:
 
 
 def test_version():
-    assert ce.version() == "0.3.16"
+    assert ce.version() == "0.3.17"
 
 
 def test_source_identity_is_exposed_by_the_loaded_native_engine():
@@ -59,8 +59,9 @@ def test_source_identity_is_exposed_by_the_loaded_native_engine():
 
 def test_parse_gro_shape(content):
     parsed = json.loads(ce.parse_gro(content))
-    assert set(parsed) == {"waters", "guests", "box_dims"}
+    assert set(parsed) == {"waters", "guests", "box_dims", "box_vectors"}
     assert len(parsed["box_dims"]) == 3
+    assert len(parsed["box_vectors"]) in (3, 9)
     assert len(parsed["waters"]) > 0
     # Every water carries O + 2 H, coordinates in nm.
     w0 = parsed["waters"][0]

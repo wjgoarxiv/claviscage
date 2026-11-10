@@ -272,7 +272,7 @@ fn analyze_gro(
     run(
         &parsed.waters,
         &parsed.guests,
-        &parsed.box_dims,
+        &parsed.box_vectors,
         kind,
         cutoff,
         theta,

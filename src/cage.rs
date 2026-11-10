@@ -2160,6 +2160,26 @@ mod tests {
         assert_eq!(total, 512, "128 + 384 = the full sI 4x4x4 crystal");
     }
 
+    /// sH is hexagonal, so its GRO box line carries a tilt (v2x = -a/2). GenIce2's sH cell
+    /// holds two unit cells; 2x2x2 of it is 16 unit cells, each 3 x 512 + 2 x 435663 +
+    /// 1 x 51268. With only the three box lengths the minimum image is wrong across the
+    /// tilted face and cages there are lost (41 instead of 48 512 cages).
+    #[test]
+    fn test_sh_triclinic_cage_detection() {
+        let gro = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures/crystals/222_SH.gro"))
+            .expect("Failed to read test GRO file");
+        let parsed = crate::parser::parse_gro_content(&gro).expect("Failed to parse GRO file");
+        assert_eq!(parsed.box_vectors.len(), 9, "sH box line keeps its tilt");
+        let cell = Cell::from_box_values(&parsed.box_vectors).unwrap();
+
+        let result = detect_cages_cell(&parsed.waters, &cell, 0.36, 35.0);
+        let count = |t: &str| result.cage_types.iter().filter(|c| c.as_str() == t).count();
+        assert_eq!(count("512"), 48, "16 sH cells hold 48 512 cages");
+        assert_eq!(count("435663"), 32, "16 sH cells hold 32 435663 cages");
+        assert_eq!(count("51268"), 16, "16 sH cells hold 16 51268 cages");
+        assert_eq!(result.cage_types.len(), 96);
+    }
+
     /// Cage assembly walks the open edges of a partially-grown polyhedron and closes the first
     /// one that admits a single candidate. Reading those edges out of a HashMap made that "first"
     /// depend on hash order, which Rust reseeds per HashMap instance -- so the same structure

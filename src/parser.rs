@@ -3,6 +3,7 @@
 
 //! GRO file parser
 
+use crate::geometry::Cell;
 use crate::{Guest, Water};
 use serde::{Deserialize, Serialize};
 
@@ -11,6 +12,11 @@ pub struct ParseResult {
     pub waters: Vec<Water>,
     pub guests: Vec<Guest>,
     pub box_dims: [f64; 3],
+    /// The full periodic cell: the 3 box lengths, or all 9 GROMACS box values when the
+    /// box line carries a tilt (`[v1x, v2y, v3z, v1y, v1z, v2x, v2z, v3x, v3y]`).
+    /// Pass this, not `box_dims`, to the `*_cell` analyses.
+    #[serde(default)]
+    pub box_vectors: Vec<f64>,
 }
 
 /// Parse GRO file content into waters, guests, and box dimensions
@@ -143,19 +149,32 @@ pub fn parse_gro_content(content: &str) -> Result<ParseResult, String> {
     } else {
         return Err("Invalid box dimensions".to_string());
     };
+    let tilted = box_parts.len() >= 9 && box_parts[3..9].iter().any(|v| *v != 0.0);
+    let box_vectors = if tilted {
+        box_parts[..9].to_vec()
+    } else {
+        box_dims.to_vec()
+    };
 
     // Finalize guest positions with MIC-aware centroids now that the box is known.
+    let cell = if tilted {
+        Some(Cell::from_box_values(&box_vectors)?)
+    } else {
+        None
+    };
     for (name, positions) in completed_guests {
-        guests.push(Guest {
-            name,
-            position: mic_centroid(&positions, &box_dims),
-        });
+        let position = match &cell {
+            Some(cell) => cell.average(&positions),
+            None => mic_centroid(&positions, &box_dims),
+        };
+        guests.push(Guest { name, position });
     }
 
     Ok(ParseResult {
         waters,
         guests,
         box_dims,
+        box_vectors,
     })
 }
 
@@ -372,6 +391,26 @@ mod tests {
         let result = parse_gro_content(content).unwrap();
         assert_eq!(result.waters.len(), 2);
         assert_eq!(result.box_dims, [1.0, 1.0, 1.0]);
+    }
+
+    #[test]
+    fn box_vectors_keep_the_gro_tilt() {
+        let header = "Test system\n3\n    1SOL     OW    1   0.100   0.200   0.300\n    1SOL    HW1    2   0.150   0.200   0.300\n    1SOL    HW2    3   0.050   0.200   0.300\n";
+        let ortho = parse_gro_content(&format!("{header}   1.00000   2.00000   3.00000\n")).unwrap();
+        assert_eq!(ortho.box_vectors, vec![1.0, 2.0, 3.0]);
+
+        let zero_tilt = parse_gro_content(&format!(
+            "{header}   1.0   2.0   3.0   0.0   0.0   0.0   0.0   0.0   0.0\n"
+        ))
+        .unwrap();
+        assert_eq!(zero_tilt.box_vectors, vec![1.0, 2.0, 3.0]);
+
+        let tilted = parse_gro_content(&format!(
+            "{header}   2.0   1.732   3.0   0.0   0.0  -1.0   0.0   0.0   0.0\n"
+        ))
+        .unwrap();
+        assert_eq!(tilted.box_dims, [2.0, 1.732, 3.0]);
+        assert_eq!(tilted.box_vectors, vec![2.0, 1.732, 3.0, 0.0, 0.0, -1.0, 0.0, 0.0, 0.0]);
     }
 
     #[test]

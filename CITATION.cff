@@ -15,10 +15,12 @@ authors:
     email: woojingo.contact@gmail.com
   - given-names: Junghoon
     family-names: Mok
+    orcid: "https://orcid.org/0009-0003-1576-5188"
   - given-names: Yongwon
     family-names: Seo
+    orcid: "https://orcid.org/0000-0002-7249-5052"
 license: GPL-3.0-or-later
-version: 0.3.16
+version: 0.3.17
 url: "https://claviscage.app"
 repository-code: "https://github.com/wjgoarxiv/claviscage"
 keywords:

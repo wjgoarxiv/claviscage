@@ -9,6 +9,7 @@ use std::env;
 use std::fs;
 use std::process;
 
+use clavis_wasm::geometry::Cell;
 use clavis_wasm::{cage, chill, grade, htr, order_params, parser, GradeResult};
 
 fn main() {
@@ -44,28 +45,42 @@ fn main() {
         .and_then(|s| s.parse::<f64>().ok())
         .unwrap_or(0.36);
 
-    let json: Result<String, String> = match analysis {
-        "chill" => serde_json::to_string_pretty(&chill::calculate_chill(&parsed.waters, &box3, cutoff))
-            .map_err(|e| e.to_string()),
-        "trace" => serde_json::to_string_pretty(&cage::detect_cages(&parsed.waters, &box3, rcut, theta))
-            .map_err(|e| e.to_string()),
-        "htr" => serde_json::to_string_pretty(&htr::detect_htr_rings(&parsed.waters, &box3, rcut, theta))
-            .map_err(|e| e.to_string()),
-        "grade" => {
-            let parameters = grade::GradeParameters {
-                rcut: args.get(3).and_then(|s| s.parse().ok()).unwrap_or(0.35),
-                ..grade::GradeParameters::default()
-            };
-            let guest_positions: Vec<_> = parsed.guests.iter().map(|guest| guest.position).collect();
-            grade::detect_grade(&parsed.waters, &guest_positions, &box3, parameters)
-                .map(|native| GradeResult::from_native(native, parameters))
-                .and_then(|result| serde_json::to_string_pretty(&result).map_err(|e| e.to_string()))
+    let grade_parameters = grade::GradeParameters {
+        rcut: args.get(3).and_then(|s| s.parse().ok()).unwrap_or(0.35),
+        ..grade::GradeParameters::default()
+    };
+    let guest_positions: Vec<_> = parsed.guests.iter().map(|guest| guest.position).collect();
+    let known = ["chill", "trace", "htr", "grade", "f3f4"];
+    if !known.contains(&analysis) {
+        eprintln!("error: unknown analysis '{}' (expected chill|trace|htr|grade|f3f4)", analysis);
+        process::exit(2);
+    }
+
+    // A tilted box (9 values on the GRO box line) takes the engine's general-cell path.
+    let json: Result<String, String> = if parsed.box_vectors.len() == 9 {
+        let cell = match Cell::from_box_values(&parsed.box_vectors) {
+            Ok(c) => c,
+            Err(e) => {
+                eprintln!("error: invalid box: {}", e);
+                process::exit(1);
+            }
+        };
+        match analysis {
+            "chill" => to_json(&chill::calculate_chill_cell(&parsed.waters, &cell, cutoff)),
+            "trace" => to_json(&cage::detect_cages_cell(&parsed.waters, &cell, rcut, theta)),
+            "htr" => to_json(&htr::detect_htr_rings_cell(&parsed.waters, &cell, rcut, theta)),
+            "grade" => grade::detect_grade_cell(&parsed.waters, &guest_positions, &cell, grade_parameters)
+                .and_then(|native| to_json(&GradeResult::from_native(native, grade_parameters))),
+            _ => to_json(&order_params::calculate_f3_f4_cell(&parsed.waters, &cell, cutoff)),
         }
-        "f3f4" => serde_json::to_string_pretty(&order_params::calculate_f3_f4(&parsed.waters, &box3, cutoff))
-            .map_err(|e| e.to_string()),
-        other => {
-            eprintln!("error: unknown analysis '{}' (expected chill|trace|htr|grade|f3f4)", other);
-            process::exit(2);
+    } else {
+        match analysis {
+            "chill" => to_json(&chill::calculate_chill(&parsed.waters, &box3, cutoff)),
+            "trace" => to_json(&cage::detect_cages(&parsed.waters, &box3, rcut, theta)),
+            "htr" => to_json(&htr::detect_htr_rings(&parsed.waters, &box3, rcut, theta)),
+            "grade" => grade::detect_grade(&parsed.waters, &guest_positions, &box3, grade_parameters)
+                .and_then(|native| to_json(&GradeResult::from_native(native, grade_parameters))),
+            _ => to_json(&order_params::calculate_f3_f4(&parsed.waters, &box3, cutoff)),
         }
     };
 
@@ -76,4 +91,8 @@ fn main() {
             process::exit(1);
         }
     }
+}
+
+fn to_json<T: serde::Serialize>(value: &T) -> Result<String, String> {
+    serde_json::to_string_pretty(value).map_err(|e| e.to_string())
 }
