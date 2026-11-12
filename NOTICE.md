@@ -5,7 +5,8 @@ analysing gas hydrate cages; the browser application runs at https://claviscage.
 
 - **Engine source** (`src/`, `tests/`, `pytests/`, `scripts/`, `Cargo.toml`, `pyproject.toml`):
   GPL-3.0-or-later, see `LICENSE.txt`. The engine includes ports of TRACE and GRADE (both
-  GPL-3.0-or-later) and follows the HTR authors' program; `NOTICE` lists the original authors and
+  GPL-3.0-or-later) and implements HTR from its paper, checked against the authors' program, whose
+  code is not included; `NOTICE` lists the original authors and
   the origin of the test fixtures.
 - **Documentation, method notes, diagrams and the bundle schema**: CC BY 4.0, see
   `LICENSE-docs.md`.

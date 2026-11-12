@@ -177,6 +177,11 @@ HTR is implemented from the paper and checked against the authors' published pro
 carries no licence, and its code is not included here. Details are in
 [`docs/methods/method-registry.md`](docs/methods/method-registry.md).
 
+Anyone can propose a new method with a
+[method request](https://github.com/wjgoarxiv/claviscage/issues/new?template=method_request.yml).
+[`CONTRIBUTING.md`](CONTRIBUTING.md) lists what a request needs and the rules a method must meet to
+ship; a per-frame method then appears in the web app and in Python without host-specific code.
+
 ## 🎛️ Viewing and styling
 
 - **Overlays**: cage wireframes coloured by type, HTR rings, the hydrogen-bond network, the PBC box
@@ -310,6 +315,7 @@ schema/             JSON Schema draft for the bundle
 assets/cover/       the cover loop above and its provenance
 assets/screens/     screenshots of the app
 CITATION.cff        citation metadata
+CONTRIBUTING.md     how to propose and add a method
 ```
 
 ## 💬 FAQ
@@ -390,6 +396,6 @@ ClavisCage is free and has no accounts. If it saves you time, you can keep it ru
 
 **[Open ClavisCage →](https://claviscage.app)**
 
-[App](https://claviscage.app) · [Docs](https://docs.claviscage.app) · [Methods](docs/methods/) · [Validation](docs/validation/benchmarks.md) · [Changelog](CHANGELOG.md) · [Security](SECURITY.md)
+[App](https://claviscage.app) · [Docs](https://docs.claviscage.app) · [Methods](docs/methods/) · [Validation](docs/validation/benchmarks.md) · [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md) · [Security](SECURITY.md)
 
 </div>

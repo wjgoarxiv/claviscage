@@ -1,0 +1,44 @@
+name: Method request
+description: Propose a published method for the engine (cage finding, water structure, order parameters).
+title: "Method request: "
+labels: [methods, method-request]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        See [CONTRIBUTING.md](https://github.com/wjgoarxiv/claviscage/blob/main/CONTRIBUTING.md) for the verification levels, the spec-gap rule and the licence rule.
+  - type: input
+    id: paper
+    attributes:
+      label: Paper
+      description: Full reference and DOI. If the method was refined later, name the version you want.
+    validations:
+      required: true
+  - type: textarea
+    id: inputs
+    attributes:
+      label: Inputs
+      description: What the method reads (oxygens only, hydrogens, guests, a trajectory rather than one frame).
+    validations:
+      required: true
+  - type: textarea
+    id: outputs
+    attributes:
+      label: Outputs
+      description: Per-frame numbers, per-water values or classes, or cages.
+    validations:
+      required: true
+  - type: textarea
+    id: fixture
+    attributes:
+      label: A fixture with its expected output
+      description: A small structure and the answer the method must give on it, ideally one that does not depend on any program (an ideal crystal, a hand-built cluster). Attach files or link them.
+    validations:
+      required: true
+  - type: input
+    id: code
+    attributes:
+      label: Code and licence
+      description: Repository URL and its licence, or "no public code".
+    validations:
+      required: true
